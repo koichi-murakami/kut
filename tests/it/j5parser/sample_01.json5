@@ -1,0 +1,41 @@
+// JSON5 test pattern
+
+{
+  // global parameters
+  yesorno : true,
+  yesorno_list : [ true, false],
+
+  // -----------------------------------------------------------------
+  // primary setting
+  "Primary" : {
+    // primary type (gun / beam)
+    type : 'gun',
+    number : 100, 
+
+    // particle starting position (x,y,z) in cm (z >= -100)
+    position : [ 5., +.1, +100. ],
+
+    legend : ["x1", "y2", "z3"],
+
+  },
+
+  // -----------------------------------------------------------------
+  // geometry setup
+  Geometry : {
+    /* geometry size */
+    size : 20.0,
+
+    segment : [5, 105, 25],
+
+    // position in different namespace
+    position : [ 1., 1., 0. ],
+
+    // sub objects
+    type : {
+      name : "calorimeter A",
+    },
+
+  },
+
+}
+

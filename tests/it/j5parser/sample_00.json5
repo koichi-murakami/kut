@@ -1,0 +1,92 @@
+/* aaaa
+*  hoge fuga
+*  cc
+*/
+
+// JSON5 test pattern
+
+{
+  // global parameters
+  yesorno : true,
+
+  // -----------------------------------------------------------------
+  // primary setting
+  "Primary" :{
+
+    // primary type (gun / beam)
+    type : 'gun',
+ "number" : 10, // integer
+
+    // particle starting position (x,y,z) in cm (z >= -100)
+    // z is w.r.t. the surface phantom (SSD)
+    "position" : [ 5.,    // x
+                   +.1,   // y, ng
+                   +100. ],  // z, ng
+
+    strarray : [ 'hello world', 'bbb', 'ccc'],
+
+	  xxx : {
+      bbb: {
+        ccc: 3, // ng/ok
+      } // ok
+    }, // ng
+
+  }, // ok
+
+hoge:{aaa:1,"bbb":2},
+
+fuga
+ : 1,
+
+
+zzz : {
+ "xyz" : [ 5.,    // x
+            0.,   // y
+         -100. ],  // ng
+},
+
+  array : [
+   { element1 : "hoge" },
+   { element2 : "fuga" },
+  ],
+
+  array2 : {
+    element1: "hoge",
+    element2: "fuga" 
+  },
+
+  // bool
+  bool_val : true,
+  bool_array :  [true, false, true],
+
+  /* -----------------------------------------------------------------
+  // geometry setup
+  ----------------------------------------------------------------- */
+  Geometry : {
+
+    /* geometry size */
+    size : 10.0,   /* hoge hoge */
+
+    // position in different namespace
+    position : [ 1., 1., 0. ],
+
+    // sub objects
+    type : {
+      name : "detector 1",
+    }, // ng
+
+  },
+  /*     hoge fuga    */
+  // ...
+  multi_line : '  
+hoge fuga momo \	  // comments
+fuga hoge momo',
+
+  plus: +10, // +10
+
+  // last comma
+  zero :  .1, // ng
+  int_param : 10, // ng
+
+}
+
