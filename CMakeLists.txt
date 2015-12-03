@@ -7,7 +7,7 @@ project(KUT)
 #------------------------------------------------------------------------------
 # installation prefixes for libraries
 set(CMAKE_INSTALL_PREFIX $ENV{HOME}/Library/kut)
-#set(GTEST_ROOT /opt/gtest)
+set(CPPUTEST_DIR /opt/cpputest)
 
 # compiler selection
 set(CMAKE_CXX_COMPILER g++)
@@ -26,7 +26,6 @@ set(CMAKE_MODULE_PATH
     ${CMAKE_MODULE_PATH})
 
 # find packages
-#find_package(GTest REQUIRED)
 find_package(CppUTest REQUIRED)
 
 #------------------------------------------------------------------------------
