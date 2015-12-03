@@ -1,13 +1,13 @@
-# - Top-level CMakeLists.txt for KLAB
+# - Top-level CMakeLists.txt for KUT
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.4)
 
 #------------------------------------------------------------------------------
-project(KLAB)
+project(KUT)
 #------------------------------------------------------------------------------
 # installation prefixes for libraries
-set(CMAKE_INSTALL_PREFIX $ENV{HOME}/Library/klab)
-set(GTEST_ROOT /opt/gtest)
+set(CMAKE_INSTALL_PREFIX $ENV{HOME}/Library/kut)
+#set(GTEST_ROOT /opt/gtest)
 
 # compiler selection
 set(CMAKE_CXX_COMPILER g++)
@@ -20,8 +20,14 @@ set(DEBUG FALSE CACHE BOOL "Debug Mode")
 #------------------------------------------------------------------------------
 # Do not edit below
 #------------------------------------------------------------------------------
+# cmake modules
+set(CMAKE_MODULE_PATH
+    ${PROJECT_SOURCE_DIR}/cmake/Modules
+    ${CMAKE_MODULE_PATH})
+
 # find packages
-find_package(GTest REQUIRED)
+#find_package(GTest REQUIRED)
+find_package(CppUTest REQUIRED)
 
 #------------------------------------------------------------------------------
 # c++11
@@ -64,20 +70,23 @@ message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 message(STATUS "CMAKE_CXX_COMPILER: ${CMAKE_CXX_COMPILER}")
 
 message(STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "CppUTest_FOUND: ${CPPUTEST_FOUND}")
+message(STATUS "CPPUTEST_INCLUDE_DIRS: ${CPPUTEST_INCLUDE_DIRS}")
+message(STATUS "CPPUTEST_LIBRARIES: ${CPPUTEST_INCLUDE_DIRS}")
 message(STATUS "--------------------------------------------------------")
 
 #------------------------------------------------------------------------------
 # add subdiretories...
-include(CTest)
-enable_testing()
+#include(CTest)
+#enable_testing()
 
 # adding sub directories to the project
 # libraries
 add_subdirectory(json5_parser)
 #add_subdirectory(timer)
 
+#add_subdirectory(tests/ut)
 # unit testing
-add_subdirectory(tests/ut)
 
 # integration testing
 #add_subdirectory(testing/it)
