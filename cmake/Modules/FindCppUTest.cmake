@@ -1,40 +1,24 @@
-# - Find Geant4 library
-# This module sets up Geant4 information
+# - Find CPPUTest library
 # It defines:
-# GEANT4_FOUND               If the Geant4 is found
-# GEANT4_INCLUDE_DIR         PATH to the include directory
-# GEANT4_LIBRARY_DIR         PATH to the library directory
-# GEANT4_LIBRARIES           Most common libraries
-# GEANT4_LIBRARIES_WITH_VIS  Most common libraries with visualization
+# CPPUTEST_FOUND               If the CPPUTest is found
+# CPPUTEST_INCLUDE_DIRS        PATH to the include directory
+# CPPUTEST_LIBRARIES           libraries
 
-find_program(GEANT4_CONFIG NAMES geant4-config
-             PATHS $ENV{GEANT4_INSTALL}/bin
-                   ${GEANT4_INSTALL}/bin
-                   /usr/local/bin /opt/local/bin)
+find_package(PkgConfig)
 
-if(GEANT4_CONFIG)
-  set(GEANT4_FOUND TRUE)
+pkg_check_modules(PC_CPPUTEST cpputest>=3.7)
 
-  execute_process(COMMAND ${GEANT4_CONFIG} --prefix
-                  OUTPUT_VARIABLE GEANT4_PREFIX
-                  OUTPUT_STRIP_TRAILING_WHITESPACE)
-  execute_process(COMMAND ${GEANT4_CONFIG} --version
-                  OUTPUT_VARIABLE GEANT4_VERSION
-                  OUTPUT_STRIP_TRAILING_WHITESPACE)
+find_path(CPPUTEST_INCLUDE_DIR CppUTest/CppUTestConfig.h
+  HINTS ${PC_CPPUTEST_INCLUDEDIR} ${PC_CPPUTEST_INCLUDE_DIRS}
+)
 
-  message(STATUS "Found Geant4: ${GEANT4_PREFIX} (${GEANT4_VERSION})")
+find_library(CPPUTEST_LIBRARY NAMES CppUTest libCppUTest
+  HINTS ${PC_CPPUTEST_LIBDIR} ${PC_CPPUTEST_LIBRARY_DIRS}
+)
 
-else()
-  set(GEANT4_FOUND FALSE)
-  message(STATUS "NOT Found Geant4: set GEANT4_INSTALL env.")
+include(FindPackageHandleStandardArgs)
 
-endif()
+find_package_handle_standard_args(CppUTest DEFAULT_MSG
+  CPPUTEST_LIBRARY CPPUTEST_INCLUDE_DIR)
 
-set(GEANT4_INCLUDE_DIR ${GEANT4_PREFIX}/include/Geant4)
-set(GEANT4_LIBRARY_DIR ${GEANT4_PREFIX}/lib64)
-set(GEANT4_LIBRARIES  G4interfaces G4persistency G4analysis
-                      G4error_propagation G4readout G4physicslists
-                      G4run G4event G4tracking G4parmodels G4processes
-                      G4digits_hits G4track G4particles G4geometry
-                      G4materials G4graphics_reps G4intercoms
-                      G4global G4clhep)
+mark_as_advanced(CPPUTEST_INCLUDE_DIR CPPUTEST_LIBRARY)
