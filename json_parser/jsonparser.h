@@ -20,7 +20,7 @@
   void operator=(const TypeName&) = delete
 
 
-namespace klab {
+namespace kut {
 
 class JsonParser {
 public:
