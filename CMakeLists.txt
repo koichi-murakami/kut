@@ -81,14 +81,14 @@ message(STATUS "--------------------------------------------------------")
 
 # adding sub directories to the project
 # libraries
-add_subdirectory(json5_parser)
+add_subdirectory(json_parser)
 #add_subdirectory(timer)
 
 #add_subdirectory(tests/ut)
 # unit testing
 
 # integration testing
-#add_subdirectory(testing/it)
+add_subdirectory(tests/it)
 
 # binaries (after `make install')
 #add_subdirectory(xxx EXCLUDE_FROM_ALL)
