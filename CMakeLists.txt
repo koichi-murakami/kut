@@ -1,14 +1,14 @@
 # - Top-level CMakeLists.txt for KUT
 # test for codeship
 
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 3.6)
 
 #------------------------------------------------------------------------------
 project(KUT)
 #------------------------------------------------------------------------------
 # installation prefixes for libraries
 set(CMAKE_INSTALL_PREFIX $ENV{HOME}/Library/kut)
-set(CPPUTEST_DIR /opt/cpputest)
+#set(CPPUTEST_DIR /opt/cpputest)
 
 # compiler selection
 set(CMAKE_CXX_COMPILER g++)
@@ -44,7 +44,7 @@ if(NOT CMAKE_BUILD_TYPE)
   endif()
 endif()
 
-# library path
+# library path (lib or lib64)
 if(NOT DEFINED CMAKE_INSTALL_LIBDIR)
   set(_LIBDIR_DEFAULT "lib")
   if(CMAKE_SYSTEM_NAME MATCHES "Linux"
@@ -70,9 +70,7 @@ message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
 message(STATUS "CMAKE_CXX_COMPILER: ${CMAKE_CXX_COMPILER}")
 
 message(STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
-message(STATUS "CppUTest_FOUND: ${CPPUTEST_FOUND}")
-message(STATUS "CPPUTEST_INCLUDE_DIRS: ${CPPUTEST_INCLUDE_DIRS}")
-message(STATUS "CPPUTEST_LIBRARIES: ${CPPUTEST_INCLUDE_DIRS}")
+message(STATUS "CPPUTEST_FOUND: ${CPPUTEST_FOUND}")
 message(STATUS "--------------------------------------------------------")
 
 #------------------------------------------------------------------------------
@@ -85,8 +83,8 @@ message(STATUS "--------------------------------------------------------")
 add_subdirectory(json_parser)
 #add_subdirectory(timer)
 
-#add_subdirectory(tests/ut)
 # unit testing
+#add_subdirectory(tests/ut)
 
 # integration testing
 add_subdirectory(tests/it EXCLUDE_FROM_ALL)
