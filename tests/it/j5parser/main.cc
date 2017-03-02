@@ -15,7 +15,7 @@ namespace {
 // --------------------------------------------------------------------------
 void show_version()
 {
-  std::cout << "j5parser version 1.0.0" << std::endl;
+  std::cout << "jparser version 1.0.0" << std::endl;
 }
 
 // --------------------------------------------------------------------------
@@ -27,12 +27,13 @@ void show_help()
             << std::endl << std::endl;
   std::cout << "   -h, --help          show this message." << std::endl
             << "   -v  --version       show program name/version." << std::endl
-            << "   -d  --debug         show debug info." << std::endl
             << std::endl;
   std::cout << std::endl;
 }
 
 } // end of namespace
+
+using namespace kut;
 
 // --------------------------------------------------------------------------
 int main(int argc, char** argv)
@@ -40,12 +41,10 @@ int main(int argc, char** argv)
   // optional parameters
   bool qhelp = false;
   bool qversion = false;
-  bool qdebug = false;
 
   struct option long_options[] = {
     {"help",    no_argument,       NULL, 'h'},
     {"version", no_argument,       NULL, 'v'},
-    {"debug",   no_argument,       NULL, 'd'},
     {NULL,      0,                 NULL,  0}
   };
 
@@ -63,9 +62,6 @@ int main(int argc, char** argv)
       break;
     case 'v' :
       qversion = true;
-      break;
-    case 'd' :
-      qdebug = true;
       break;
     default:
       std::exit(EXIT_FAILURE);
@@ -97,10 +93,9 @@ int main(int argc, char** argv)
   // ----------------------------------------------------------------------
   // parsing config JSON file...
   JsonParser* jparser = JsonParser::GetJsonParser();
-  //jparser-> SetThrowException(true);
-  bool qload = jparser-> LoadFile(config_file, qdebug);
+  bool qload = jparser-> LoadFile(config_file);
   if ( ! qload ) {
-    std::cout << "[ ERROR ] failed on loading a config file. "
+    std::cout << "[ERROR] failed on loading a config file. "
               << config_file << std::endl;
     std::exit(EXIT_FAILURE);
   }
