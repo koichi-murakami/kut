@@ -27,7 +27,7 @@ set(CMAKE_MODULE_PATH
     ${CMAKE_MODULE_PATH})
 
 # find packages
-find_package(CppUTest REQUIRED)
+find_package(CppUTest QUIET)
 
 #------------------------------------------------------------------------------
 # c++11
@@ -74,17 +74,18 @@ message(STATUS "CPPUTEST_FOUND: ${CPPUTEST_FOUND}")
 message(STATUS "--------------------------------------------------------")
 
 #------------------------------------------------------------------------------
-# add subdiretories...
-#include(CTest)
-#enable_testing()
-
 # adding sub directories to the project
 # libraries
 add_subdirectory(json_parser)
 #add_subdirectory(timer)
 
+if (CPPUTEST_FOUND)
+include(CTest)
+enable_testing()
+
 # unit testing
-#add_subdirectory(tests/ut)
+add_subdirectory(tests/ut)
+endif()
 
 # integration testing
 add_subdirectory(tests/it EXCLUDE_FROM_ALL)
