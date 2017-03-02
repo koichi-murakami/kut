@@ -1,8 +1,8 @@
-# - build json5_parser library
+# - build json_parser library
 
 # library
 add_library(
-  json5_parser SHARED
+  json_parser SHARED
   jsonparser.cc
 )
 # headers
@@ -12,5 +12,5 @@ set(HEADERS
 )
 
 # install
-install(TARGETS json5_parser LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS json_parser LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_INCDIR})

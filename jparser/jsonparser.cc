@@ -23,7 +23,7 @@ namespace {
   void ThrowException(const std::string& message)
   {
     std::stringstream ss;
-    ss << "[ ERROR ] " << message  << std::endl;
+    ss << "[ERROR] " << message << std::endl;
     throw std::runtime_error(ss.str());
   }
 
@@ -275,7 +275,7 @@ void DumpObject(const picojson::object& obj, int level)
 
 } // end of namespace
 
-namespace klab {
+namespace kut {
 
 // --------------------------------------------------------------------------
 JsonParser* JsonParser::GetJsonParser()
