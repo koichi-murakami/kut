@@ -3,28 +3,56 @@
 # It defines:
 # CPPUTEST_FOUND               If the CPPUTest is found
 # CPPUTEST_INCLUDE_DIRS        PATH to the include directory
+# CPPUTEST_LIBRARY_DIRS        path to the libraries directories
 # CPPUTEST_LIBRARIES           libraries
 #
 # CPPUTEST_DIR is used for guessing the installed path.
 #
 
+message("-- Detecting CppUTest package")
+
 find_package(PkgConfig QUIET)
+pkg_check_modules(PC_CPPUTEST QUIET cpputest)
 
-pkg_check_modules(PC_CPPUTEST cpputest QUIET)
+set(CPPUTEST_FOUND 1)
 
-find_path(CPPUTEST_INCLUDE_DIR CppUTest/CppUTestConfig.h
-  HINTS ${PC_CPPUTEST_INCLUDEDIR} ${PC_CPPUTEST_INCLUDE_DIRS}
-  ${CPPUTEST_DIR}/include
-)
+# find include path
+find_path(CPPUTEST_INCLUDE_DIRS CppUTest/CppUTestConfig.h
+  HINTS ${CPPUTEST_DIR}/include ${PC_CPPUTEST_INCLUDE_DIRS})
+if(CPPUTEST_INCLUDE_DIRS MATCHES "^.*-NOTFOUND")
+  set(CPPUTEST_FOUND 0)
+endif()
 
-find_library(CPPUTEST_LIBRARY NAMES CppUTest libCppUTest
-  HINTS ${PC_CPPUTEST_LIBDIR} ${PC_CPPUTEST_LIBRARY_DIRS}
-  ${CPPUTEST_DIR}/lib ${CPPUTEST_DIR}/lib64
-)
+# find library path
+find_path(CPPUTEST_LIBRARY_DIRS libCppUTest.a
+  HINTS  ${CPPUTEST_DIR}/lib ${CPPUTEST_DIR}/lib64
+         ${PC_CPPUTEST_LIBRARY_DIRS})
+if(CPPUTEST_LIBRARY_DIRS MATCHES "^.*-NOTFOUND")
+  set(CPPUTEST_FOUND 0)
+endif()
 
+# find library
+find_library(CPPUTEST_LIB1 NAMES CppUTest PATHS ${CPPUTEST_LIBRARY_DIRS})
+if(CPPUTEST_LIB1 MATCHES "^.*-NOTFOUND")
+  set(CPPUTEST_FOUND 0)
+endif()
+
+find_library(CPPUTEST_LIB2 NAMES CppUTestExt PATHS ${CPPUTEST_LIBRARY_DIRS})
+if(CPPUTEST_LIB2 MATCHES "^.*-NOTFOUND")
+  set(CPPUTEST_FOUND 0)
+endif()
+
+if (CPPUTEST_FOUND)
+  set(CPPUTEST_LIBRARIES stdc++ CppUTest CPPUTestExt)
+endif()
+
+#
 include(FindPackageHandleStandardArgs)
 
 find_package_handle_standard_args(CppUTest DEFAULT_MSG
-  CPPUTEST_LIBRARY CPPUTEST_INCLUDE_DIR)
+  CPPUTEST_INCLUDE_DIRS CPPUTEST_LIBRARY_DIRS CPPUTEST_LIBRARIES)
 
-mark_as_advanced(CPPUTEST_INCLUDE_DIR CPPUTEST_LIBRARY)
+mark_as_advanced(CPPUTEST_INCLUDE_DIRS
+  CPPUTEST_LIBRARY_DIRS CPPUTEST_LIBRARIES)
+
+message("-- Detecting CppUTest package - done")
