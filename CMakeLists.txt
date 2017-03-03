@@ -76,7 +76,7 @@ message(STATUS "--------------------------------------------------------")
 #------------------------------------------------------------------------------
 # adding sub directories to the project
 # libraries
-add_subdirectory(json_parser)
+add_subdirectory(jparser)
 #add_subdirectory(timer)
 
 if (CPPUTEST_FOUND)

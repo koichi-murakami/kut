@@ -1,12 +1,12 @@
 # - build j5parser
 
 # executable
-set (APP_NAME jparser)
+set (APP_NAME j5parser)
 
-include_directories(${PROJECT_SOURCE_DIR}/json_parser)
-link_directories(${CMAKE_BINARY_DIR}/json_parser)
+include_directories(${PROJECT_SOURCE_DIR}/jparser)
+link_directories(${CMAKE_BINARY_DIR}/jparser)
 
 add_executable(${APP_NAME} main.cc)
-target_link_libraries(${APP_NAME} json_parser)
+target_link_libraries(${APP_NAME} jparser)
 
 install(TARGETS ${APP_NAME} DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)

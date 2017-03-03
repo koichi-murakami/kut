@@ -329,7 +329,7 @@ bool JsonParser::LoadFile(const std::string& fname)
 
   std::string error = picojson::parse(data_map_, json_string);
   if ( ! error.empty() ) {
-    std::cerr << "[ ERROR ] JsonParser::LoadFile() error in JSON parsing. "
+    std::cerr << "[ERROR] JsonParser::LoadFile() error in JSON parsing. "
               << std::endl << error << std::endl;
     return false;
   }

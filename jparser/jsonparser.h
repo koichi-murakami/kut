@@ -19,7 +19,6 @@
   TypeName(const TypeName&) = delete;      \
   void operator=(const TypeName&) = delete
 
-
 namespace kut {
 
 class JsonParser {
