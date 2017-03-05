@@ -20,6 +20,8 @@
   TypeName(const TypeName&);               \
   void operator=(const TypeName&)
 
+namespace kut {
+
 class GTimer {
 public:
   static GTimer& GetGTimer();
@@ -57,5 +59,7 @@ private:
   std::map<std::string, double> split_history_;
 
 };
+
+} // end of namespace
 
 #endif

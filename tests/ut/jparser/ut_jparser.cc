@@ -12,8 +12,11 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include "gtest/gtest.h"
+#include "CppUTest/CommandLineTestRunner.h"
+#include "CppUTest/TestHarness.h"
 #include "jsonparser.h"
+
+using namespace kut;
 
 // --------------------------------------------------------------------------
 const std::string json_string = R"(// JSON5 test pattern
@@ -55,43 +58,58 @@ const std::string json_string = R"(// JSON5 test pattern
 )";
 
 // --------------------------------------------------------------------------
-TEST(JsonParser, Parse)
+TEST_GROUP(JsonParser)
 {
-  klab::JsonParser* jparser = klab::JsonParser::GetJsonParser();
-  EXPECT_TRUE(jparser-> LoadFile("sample.json5"));
-}
+  void setup() {
+    JsonParser* jparser = JsonParser::GetJsonParser();
+    jparser-> LoadFile("sample.json5");
+  }
+
+  void teardown() { }
+};
 
 // --------------------------------------------------------------------------
-TEST(JsonParser, DumpAll)
+TEST(JsonParser, Parse)
 {
-  klab::JsonParser* jparser = klab::JsonParser::GetJsonParser();
-  jparser-> DumpAll();
-  SUCCEED();
+  JsonParser* jparser = JsonParser::GetJsonParser();
+  CHECK(jparser-> LoadFile("sample.json5"));
 }
 
 // --------------------------------------------------------------------------
 TEST(JsonParser, Contains)
 {
-  klab::JsonParser* jparser = klab::JsonParser::GetJsonParser();
-  EXPECT_FALSE(jparser-> Contains("hoge"));
-  EXPECT_TRUE(jparser-> Contains("yesorno"));
-  EXPECT_TRUE(jparser-> Contains("yesorno_list"));
-  EXPECT_TRUE(jparser-> Contains("Primary"));
-  EXPECT_TRUE(jparser-> Contains("Primary/type"));
-  EXPECT_TRUE(jparser-> Contains("Primary/number"));
+  JsonParser* jparser = JsonParser::GetJsonParser();
+  CHECK_FALSE(jparser-> Contains("hoge"));
+  CHECK(jparser-> Contains("yesorno"));
+  CHECK(jparser-> Contains("yesorno_list"));
+  CHECK(jparser-> Contains("Primary"));
+  CHECK(jparser-> Contains("Primary/type"));
+  CHECK(jparser-> Contains("Primary/number"));
 }
 
+// --------------------------------------------------------------------------
+TEST(JsonParser, Values)
+{
+  JsonParser* jparser = JsonParser::GetJsonParser();
+  CHECK_EQUAL(true, jparser-> GetBoolValue("yesorno"));
+  std::string sval = jparser-> GetStringValue("Primary/type");
+  STRCMP_EQUAL("gun", sval.c_str());
+  CHECK_EQUAL(100, jparser-> GetIntValue("Primary/number"));
+  std::vector<int> ivec;
+  jparser->GetIntArray("Geometry/segment", ivec);
+  CHECK_EQUAL(5, ivec[0]);
+  std::vector<double> dvec;
+  jparser-> GetDoubleArray("Geometry/position", dvec);
+  DOUBLES_EQUAL(1.0, dvec[0], 1.E-6);
+}
 
 // --------------------------------------------------------------------------
 int main(int argc, char** argv)
 {
-  ::testing::InitGoogleTest(&argc, argv);
-
   std::ofstream ofile("sample.json5");
   ofile << json_string;
   ofile.close();
 
-  int rc = RUN_ALL_TESTS();
-
-  return rc;
+  MemoryLeakWarningPlugin::turnOffNewDeleteOverloads();
+  return RUN_ALL_TESTS(argc, argv);
 }

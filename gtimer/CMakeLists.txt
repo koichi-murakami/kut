@@ -1,16 +1,16 @@
-# - build json_parser library
+# - build gtimer library
 
 # library
 add_library(
-  jparser SHARED
-  jsonparser.cc
+  gtimer SHARED
+  gtimer.cc timer.cc
 )
 # headers
 set(HEADERS
-  jsonparser.h
-  picojson.h
+  gtimer.h
+  timer.h
 )
 
 # install
-install(TARGETS jparser LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS gtimer LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_INCDIR})

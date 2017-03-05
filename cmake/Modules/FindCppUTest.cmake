@@ -43,7 +43,7 @@ if(CPPUTEST_LIB2 MATCHES "^.*-NOTFOUND")
 endif()
 
 if (CPPUTEST_FOUND)
-  set(CPPUTEST_LIBRARIES stdc++ CppUTest CPPUTestExt)
+  set(CPPUTEST_LIBRARIES stdc++ CppUTest CppUTestExt)
 endif()
 
 #

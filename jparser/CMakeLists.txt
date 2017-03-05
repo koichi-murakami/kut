@@ -1,4 +1,4 @@
-# - build json_parser library
+# - build jparser library
 
 # library
 add_library(

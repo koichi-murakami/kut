@@ -1,5 +1,4 @@
 # - Top-level CMakeLists.txt for KUT
-# test for codeship
 
 cmake_minimum_required(VERSION 3.6)
 
@@ -88,7 +87,7 @@ add_subdirectory(tests/ut)
 endif()
 
 # integration testing
-add_subdirectory(tests/it EXCLUDE_FROM_ALL)
+add_subdirectory(tests/it)
 
 # binaries (after `make install')
 #add_subdirectory(xxx EXCLUDE_FROM_ALL)

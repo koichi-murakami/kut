@@ -11,6 +11,7 @@
 ============================================================================*/
 #include "gtimer.h"
 
+namespace kut {
 // --------------------------------------------------------------------------
 GTimer& GTimer::GetGTimer()
 {
@@ -105,3 +106,5 @@ void GTimer::ShowClock(const std::string& prefix) const
 {
   std::cout << prefix << " " << g4timer_.GetClockTime() << std::endl;
 }
+
+} // end of namespace
