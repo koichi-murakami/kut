@@ -32,43 +32,37 @@ void Stopwatch::Reset()
 // --------------------------------------------------------------------------
 inline void Stopwatch::Split()
 {
-  end_real_time = time(&end_times_)
+  end_clock_ = times(&end_time_);
 }
 
 // --------------------------------------------------------------------------
-inline const char* Stopwatch::GetClockTime() const
+double Stopwatch::GetRealElapsed() const
 {
-  time_t rawtime;
-  struct tm * timeinfo;
-
-  time ( &rawtime );
-  timeinfo = localtime ( &rawtime );
-  return asctime (timeinfo);
-}
-
-#define times ostimes
-
-
-// --------------------------------------------------------------------------
-G4double Stopwatch::GetRealElapsed() const
-{
-  G4double diff=fEndRealTime-fStartRealTime;
-  return diff/sysconf(_SC_CLK_TCK);
-}
-
-
-// --------------------------------------------------------------------------
-G4double G4Timer::GetSystemElapsed() const
-{
-  G4double diff=fEndTimes.tms_stime-fStartTimes.tms_stime;
-  return diff/sysconf(_SC_CLK_TCK);
+  double diff = end_clock_ - start_clock_;
+  return diff / sysconf(_SC_CLK_TCK);
 }
 
 // --------------------------------------------------------------------------
-G4double G4Timer::GetUserElapsed() const
+double Stopwatch::GetSystemElapsed() const
 {
-  G4double diff=fEndTimes.tms_utime-fStartTimes.tms_utime;
-  return diff/sysconf(_SC_CLK_TCK);
+  double diff = end_time_.tms_stime - start_time_.tms_stime;
+  return diff / sysconf(_SC_CLK_TCK);
+}
+
+// --------------------------------------------------------------------------
+double Stopwatch::GetUserElapsed() const
+{
+  double diff = end_time_.tms_utime - start_time_.tms_utime;
+  return diff / sysconf(_SC_CLK_TCK);
+}
+
+// --------------------------------------------------------------------------
+const char* Stopwatch::GetClockTime() const
+{
+   time_t timer;
+   time(&timer);
+
+   return ctime(&timer);
 }
 
 } // end of namespace

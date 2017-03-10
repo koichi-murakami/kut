@@ -12,6 +12,7 @@
 #define STOPWATCH_H_
 
 #include <sys/times.h>
+#include <time.h>
 #include <unistd.h>
 
 namespace kut {
@@ -23,8 +24,6 @@ public:
 
   void Reset();
   void Split();
-
-  bool IsReset() const;
 
   double GetRealElapsed() const;
   double GetSystemElapsed() const;

@@ -1,6 +1,5 @@
 /*============================================================================
-  CUGEANT4 - CUDA Geant4 Project
-  Copyright 2012 [[@copyright]]
+  Copyright 2017 Koichi Murakami
 
   Distributed under the OSI-approved BSD License (the "License");
   see accompanying file Copyright.txt for details.
@@ -9,42 +8,42 @@
   implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   See the License for more information.
 ============================================================================*/
-#include "gtimer.h"
+#include <iostream>
+#include "timehistory.h"
 
 namespace kut {
 // --------------------------------------------------------------------------
-GTimer& GTimer::GetGTimer()
+TimeHistory& TimeHistory::GetTimeHistory()
 {
-  static GTimer the_timer;
-  return the_timer;
+  static TimeHistory thistory;
+  return thistory;
 }
 
 // --------------------------------------------------------------------------
-GTimer::GTimer()
-  : g4timer_(), t0_(0.)
+TimeHistory::TimeHistory()
+  : sw_(), t0_(0.)
 {
   split_history_.clear();
 
-  g4timer_.Start();
-  g4timer_.Stop();
-  t0_ = g4timer_.GetUserElapsed() + g4timer_.GetSystemElapsed();
+  sw_.Split();
+  t0_ = sw_.GetUserElapsed() + sw_.GetSystemElapsed();
 }
 
 // --------------------------------------------------------------------------
-GTimer::~GTimer()
+TimeHistory::~TimeHistory()
 {
 }
 
 // --------------------------------------------------------------------------
-void GTimer::TakeSplitTime(const std::string& key)
+void TimeHistory::TakeSplitTime(const std::string& key)
 {
-  g4timer_.Stop();
-  double split = g4timer_.GetUserElapsed() + g4timer_.GetSystemElapsed();
+  sw_.Split();
+  double split = sw_.GetUserElapsed() + sw_.GetSystemElapsed();
   split_history_[key] = split - t0_;
 }
 
 // --------------------------------------------------------------------------
-bool GTimer::FindAKey(const std::string& key) const
+bool TimeHistory::FindAKey(const std::string& key) const
 {
   std::map<std::string, double>::const_iterator itr;
   itr = split_history_.find(key);
@@ -53,21 +52,21 @@ bool GTimer::FindAKey(const std::string& key) const
 }
 
 // --------------------------------------------------------------------------
-double GTimer::GetTime(const std::string& key) const
+double TimeHistory::GetTime(const std::string& key) const
 {
   std::map<std::string, double>::const_iterator itr;
   itr = split_history_.find(key);
   if ( itr != split_history_.end() ) {
     return itr-> second;
   } else {
-    std::cout << "[WARNING] G4TImer::GetTime() cannot find a key. "
+    std::cout << "[WARNING] TimeHistory::GetTime() cannot find a key. "
               << key << std::endl;
     return 0.;
   }
 }
 
 // --------------------------------------------------------------------------
-void GTimer::ShowHistory(const std::string& key) const
+void TimeHistory::ShowHistory(const std::string& key) const
 {
   std::map<std::string, double>::const_iterator itr;
   itr = split_history_.find(key);
@@ -75,13 +74,13 @@ void GTimer::ShowHistory(const std::string& key) const
     std::cout << "[" << itr-> first << "] : "
               << itr-> second << "s" << std::endl;
   } else {
-    std::cout << "[WARNING] G4TImer::ShowHistory() cannot find a key. "
+    std::cout << "[WARNING] TimeHistory::ShowHistory() cannot find a key. "
               << key << std::endl;
   }
 }
 
 // --------------------------------------------------------------------------
-void GTimer::ShowAllHistories() const
+void TimeHistory::ShowAllHistories() const
 {
   std::multimap<double, std::string> histories_by_time;
   std::map<std::string, double>::const_iterator itr;
@@ -89,7 +88,7 @@ void GTimer::ShowAllHistories() const
     histories_by_time.insert(std::make_pair(itr->second, itr->first));
   }
 
-  std::cout << std::endl << "* All timer histories" << std::endl;
+  std::cout << std::endl << "* All time histories" << std::endl;
 
   std::map<double, std::string>::const_iterator itr2;
   for ( itr2 = histories_by_time.begin();
@@ -102,9 +101,9 @@ void GTimer::ShowAllHistories() const
 }
 
 // --------------------------------------------------------------------------
-void GTimer::ShowClock(const std::string& prefix) const
+void TimeHistory::ShowClock(const std::string& prefix) const
 {
-  std::cout << prefix << " " << g4timer_.GetClockTime() << std::endl;
+  std::cout << prefix << " " << sw_.GetClockTime() << std::endl;
 }
 
 } // end of namespace

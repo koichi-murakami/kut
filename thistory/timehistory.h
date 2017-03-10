@@ -1,6 +1,5 @@
 /*============================================================================
-  CUGEANT4 - CUDA Geant4 Project
-  Copyright 2012 [[@copyright]]
+  Copyright 2017 Koichi Murakami
 
   Distributed under the OSI-approved BSD License (the "License");
   see accompanying file Copyright.txt for details.
@@ -14,7 +13,7 @@
 
 #include <map>
 #include <string>
-#include "G4Timer.hh"
+#include "stopwatch.h"
 
 #define DISALLOW_COPY_AND_ASSIGN(TypeName) \
   TypeName(const TypeName&);               \
@@ -22,40 +21,29 @@
 
 namespace kut {
 
-class GTimer {
+class TimeHistory {
 public:
-  static GTimer& GetGTimer();
-  ~GTimer();
+  static TimeHistory& GetTimeHistory();
+  ~TimeHistory();
 
-  /// take split
   void TakeSplitTime(const std::string& key);
 
-  /// find a specified event key
   bool FindAKey(const std::string& key) const;
 
-  /// get time of a specified event key
   double GetTime(const std::string& key) const;
 
-  /// show history of a specified event key
   void ShowHistory(const std::string& key) const;
 
-  /// show all histories
   void ShowAllHistories() const;
 
-  /// show current time
   void ShowClock(const std::string& prefix="") const;
 
 private:
-  GTimer();
-  DISALLOW_COPY_AND_ASSIGN(GTimer);
+  TimeHistory();
+  DISALLOW_COPY_AND_ASSIGN(TimeHistory);
 
-  /// G4Timer
-  G4Timer g4timer_;
-
-  /// Time = 0
+  Stopwatch sw_;
   double t0_;
-
-  /// split history
   std::map<std::string, double> split_history_;
 
 };

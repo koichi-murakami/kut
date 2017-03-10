@@ -76,7 +76,7 @@ message(STATUS "--------------------------------------------------------")
 # adding sub directories to the project
 # libraries
 add_subdirectory(jparser)
-#add_subdirectory(timer)
+add_subdirectory(thistory)
 
 if (CPPUTEST_FOUND)
 include(CTest)

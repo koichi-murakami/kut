@@ -1,16 +1,17 @@
-# - build gtimer library
+# - build thistory library
 
 # library
 add_library(
-  gtimer SHARED
-  gtimer.cc timer.cc
+  thistory SHARED
+  stopwatch.cc
+  timehistory.cc
 )
 # headers
 set(HEADERS
-  gtimer.h
-  timer.h
+  stopwatch.h
+  timehistory.h
 )
 
 # install
-install(TARGETS gtimer LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS thistory LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(FILES ${HEADERS} DESTINATION ${CMAKE_INSTALL_INCDIR})
