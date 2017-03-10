@@ -23,10 +23,10 @@ namespace kut {
 
 class TimeHistory {
 public:
-  static TimeHistory& GetTimeHistory();
+  static TimeHistory* GetTimeHistory();
   ~TimeHistory();
 
-  void TakeSplitTime(const std::string& key);
+  void TakeSplit(const std::string& key);
 
   bool FindAKey(const std::string& key) const;
 

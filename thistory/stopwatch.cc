@@ -30,7 +30,7 @@ void Stopwatch::Reset()
 }
 
 // --------------------------------------------------------------------------
-inline void Stopwatch::Split()
+void Stopwatch::Split()
 {
   end_clock_ = times(&end_time_);
 }

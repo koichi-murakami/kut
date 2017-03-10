@@ -1,6 +1,5 @@
 /*============================================================================
-  CUGEANT4 - CUDA Geant4 Project
-  Copyright 2012 [[@copyright]]
+  Copyright 2017 Koichi Murakami
 
   Distributed under the OSI-approved BSD License (the "License");
   see accompanying file Copyright.txt for details.

@@ -13,10 +13,10 @@
 
 namespace kut {
 // --------------------------------------------------------------------------
-TimeHistory& TimeHistory::GetTimeHistory()
+TimeHistory* TimeHistory::GetTimeHistory()
 {
   static TimeHistory thistory;
-  return thistory;
+  return &thistory;
 }
 
 // --------------------------------------------------------------------------
@@ -35,7 +35,7 @@ TimeHistory::~TimeHistory()
 }
 
 // --------------------------------------------------------------------------
-void TimeHistory::TakeSplitTime(const std::string& key)
+void TimeHistory::TakeSplit(const std::string& key)
 {
   sw_.Split();
   double split = sw_.GetUserElapsed() + sw_.GetSystemElapsed();
