@@ -1,5 +1,5 @@
 # KUT
-KUT for store testing code samples
+A set of utilities
 
 ## License
 Copyright 2016- Koichi Murakami
@@ -9,10 +9,10 @@ Licensed under [2-clause BSD license]
 ## Components
 ### jparser
 Extended JSON parser (JSON5).
-Accessing parameters with key-values map. JSON keys are structured
-with "/" like Unix directory traversal.
+Accessing parameters with key-values map.
+Keys are structured with "/" like Unix directory traversal.
 
-### gtimer
+### thistory
 Utility tools for time counting/lapping.
 
 ## Notes:
