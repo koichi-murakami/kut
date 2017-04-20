@@ -7,7 +7,7 @@ project(KUT)
 #------------------------------------------------------------------------------
 # installation prefixes for libraries
 set(CMAKE_INSTALL_PREFIX $ENV{HOME}/Library/kut)
-#set(CPPUTEST_DIR /opt/cpputest)
+set(CPPUTEST_DIR /opt/cpputest)
 
 # compiler selection
 set(CMAKE_CXX_COMPILER g++)
