@@ -9,6 +9,7 @@
   See the License for more information.
 ============================================================================*/
 #include <iostream>
+#include <iomanip>
 #include "timehistory.h"
 
 namespace kut {
@@ -88,22 +89,21 @@ void TimeHistory::ShowAllHistories() const
     histories_by_time.insert(std::make_pair(itr->second, itr->first));
   }
 
-  std::cout << std::endl << "* All time histories" << std::endl;
+  std::cout << "* All time histories" << std::endl;
 
-  std::map<double, std::string>::const_iterator itr2;
+  std::multimap<double, std::string>::const_iterator itr2;
   for ( itr2 = histories_by_time.begin();
         itr2 != histories_by_time.end();  ++itr2) {
     std::cout << "[" << itr2-> second << "] : "
-              << itr2-> first << "s" << std::endl;
+              << std::fixed << std::setprecision(3)
+              << itr2-> first << " s" << std::endl;
   }
-
-  std::cout << std::endl;
 }
 
 // --------------------------------------------------------------------------
 void TimeHistory::ShowClock(const std::string& prefix) const
 {
-  std::cout << prefix << " " << sw_.GetClockTime() << std::endl;
+  std::cout << prefix << " " << sw_.GetClockTime() << std::flush;
 }
 
 } // end of namespace
