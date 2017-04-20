@@ -8,8 +8,8 @@
   implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   See the License for more information.
 ============================================================================*/
-#ifndef GTIMER_H_
-#define GTIMER_H_
+#ifndef TIME_HISTORY_H_
+#define TIME_HISTORY_H_
 
 #include <map>
 #include <string>
