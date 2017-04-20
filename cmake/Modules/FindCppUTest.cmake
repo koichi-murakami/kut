@@ -14,19 +14,26 @@ message("-- Detecting CppUTest package")
 find_package(PkgConfig QUIET)
 pkg_check_modules(PC_CPPUTEST QUIET cpputest)
 
-set(CPPUTEST_FOUND 1)
+if(PC_CPPUTEST_FOUND)
+  set(CPPUTEST_FOUND 1)
+else()
+  set(CPPUTEST_FOUND 0)
+endif()
 
 # find include path
 find_path(CPPUTEST_INCLUDE_DIRS CppUTest/CppUTestConfig.h
-  HINTS ${CPPUTEST_DIR}/include ${PC_CPPUTEST_INCLUDE_DIRS})
+          HINTS ${CPPUTEST_DIR}/include
+                ${PC_CPPUTEST_INCLUDE_DIRS} /usr/include)
 if(CPPUTEST_INCLUDE_DIRS MATCHES "^.*-NOTFOUND")
   set(CPPUTEST_FOUND 0)
 endif()
 
 # find library path
 find_path(CPPUTEST_LIBRARY_DIRS libCppUTest.a
-  HINTS  ${CPPUTEST_DIR}/lib ${CPPUTEST_DIR}/lib64
-         ${PC_CPPUTEST_LIBRARY_DIRS})
+          HINTS ${CPPUTEST_DIR}/lib64 ${CPPUTEST_DIR}/lib
+                ${PC_CPPUTEST_LIBRARY_DIRS}
+                /usr/lib64 /usr/lib
+                /usr/lib/powerpc64le-linux-gnu )
 if(CPPUTEST_LIBRARY_DIRS MATCHES "^.*-NOTFOUND")
   set(CPPUTEST_FOUND 0)
 endif()
@@ -54,5 +61,9 @@ find_package_handle_standard_args(CppUTest DEFAULT_MSG
 
 mark_as_advanced(CPPUTEST_INCLUDE_DIRS
   CPPUTEST_LIBRARY_DIRS CPPUTEST_LIBRARIES)
+
+if(CPPUTEST_FOUND)
+  message("-- CppUTest version: ${PC_CPPUTEST_VERSION}")
+endif()
 
 message("-- Detecting CppUTest package - done")
