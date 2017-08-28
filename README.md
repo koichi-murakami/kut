@@ -1,7 +1,7 @@
-# KUT
+# kut
 Copyright (c) 2017, Koichi Murakami
 
-A set of utilities
+A set of misc. utilities
 
 ## Components
 ### jparser
@@ -22,7 +22,7 @@ Keys are structured with "/" like Unix directory traversal.
 ~~~~
 
 
-An example of JSON5 data than can be parsed with jparser.
+An example of JSON5 data that can be parsed with `jparser`.
 ~~~~
 {
   // global parameters
@@ -82,7 +82,7 @@ yesorno_list : [true,false]
 
 
 ### thistory
-Utility tools for time counting/lapping.
+Utility tools for time counting.
 
 ~~~~
   TimeHistory* gtimer = TimeHistory::GetTimeHistory();
@@ -136,6 +136,6 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 The above copyright and license notice applies to distributions of
-G4Bench software in source and binary form.  Some source files contain
+kut software in source and binary form.  Some source files contain
 additional notices of original copyright by their contributors;
 see each source for details.
