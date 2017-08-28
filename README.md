@@ -3,6 +3,9 @@ Copyright (c) 2017, Koichi Murakami
 
 A set of misc. utilities
 
+* `jparser` : Extended JSON parser (JSON5)
+* `thistory` : Time counting and event history in app
+
 * [Releases](https://github.com/koichi-murakami/kut/releases)
 * [Issues](https://github.com/koichi-murakami/kut/issues)
 
@@ -83,7 +86,7 @@ yesorno_list : [true,false]
 ~~~~
 
 ### thistory
-Utility tools for time counting.
+Utility tools for time counting and event history.
 
 ~~~~
   TimeHistory* gtimer = TimeHistory::GetTimeHistory();
