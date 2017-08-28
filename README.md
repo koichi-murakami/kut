@@ -6,6 +6,7 @@ A set of misc. utilities
 * `jparser` : Extended JSON parser (JSON5)
 * `thistory` : Time counting and event history in app
 
+## Version
 * [Releases](https://github.com/koichi-murakami/kut/releases)
 * [Issues](https://github.com/koichi-murakami/kut/issues)
 
