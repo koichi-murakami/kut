@@ -2,6 +2,7 @@ language: cpp
 
 compiler:
   - gcc
+  - clang
 
 script:
 - g++ --version && cmake --version
