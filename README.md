@@ -10,7 +10,7 @@ A set of misc. utilities
 * [Releases](https://github.com/koichi-murakami/kut/releases)
 * [Issues](https://github.com/koichi-murakami/kut/issues)
 
-## Components
+## Code samples - how to work
 ### jparser
 Extended JSON parser (JSON5).
 Accessing parameters with key-values map.
