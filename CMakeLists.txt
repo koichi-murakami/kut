@@ -7,7 +7,7 @@
 #  !! DONOT EDIT THIS FILE  !!
 #  ***************************
 #
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.2)
 include(config.cmake)
 #==============================================================================
 project(kut)
