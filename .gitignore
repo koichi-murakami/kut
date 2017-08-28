@@ -21,11 +21,4 @@
 
 # Directories
 build/
-html/
-share/
-work/
-.cproject
-.project
-.settings/
 *zzz/
-data/
