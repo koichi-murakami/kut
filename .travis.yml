@@ -1,0 +1,8 @@
+language: cpp
+
+compiler:
+  - gcc
+
+script:
+- g++ --version && cmake --version
+- ./configure && cd build && make
