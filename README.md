@@ -3,6 +3,9 @@ Copyright (c) 2017, Koichi Murakami
 
 A set of misc. utilities
 
+* [Releases](https://github.com/koichi-murakami/kut/releases)
+* [Issues](https://github.com/koichi-murakami/kut/issues)
+
 ## Components
 ### jparser
 Extended JSON parser (JSON5).
@@ -79,8 +82,6 @@ yesorno : true
 yesorno_list : [true,false]
 ~~~~
 
-
-
 ### thistory
 Utility tools for time counting.
 
@@ -100,12 +101,12 @@ Utility tools for time counting.
   gtimer-> ShowAllHistories();
 ~~~~
 
-## Notes:
-picojson : 1.3.0 (embedded)
-https://github.com/kazuho/picojson
+## Dependencies
 
-CppUTest : used for unit testing.
-https://github.com/cpputest/cpputest
+The following software is used for the library.
+
+* picojson : 1.3.0 (embedded) https://github.com/kazuho/picojson
+* CppUTest : used for unit testing https://github.com/cpputest/cpputest
 
 
 ## License
