@@ -105,9 +105,8 @@ Utility tools for time counting.
 
 The following software is used for the library.
 
-* picojson : 1.3.0 (embedded) https://github.com/kazuho/picojson
-* CppUTest : used for unit testing https://github.com/cpputest/cpputest
-
+* [picojson](https://github.com/kazuho/picojson) : 1.3.0 (embedded)
+* [CppUTest](https://github.com/cpputest/cpputest) : used for unit testing
 
 ## License
 BSD 2-Clause License
