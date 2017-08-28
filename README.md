@@ -7,6 +7,7 @@ A set of misc. utilities
 * `thistory` : Time counting and event history in app
 
 ## Version
+[![Build Status](https://travis-ci.org/koichi-murakami/kut.svg?branch=master)](https://travis-ci.org/koichi-murakami/kut)
 * [Releases](https://github.com/koichi-murakami/kut/releases)
 * [Issues](https://github.com/koichi-murakami/kut/issues)
 
