@@ -70,7 +70,7 @@ message(STATUS "--------------------------------------------------------")
 # version.h (#.##d# + rev# / dev flag d/a/b/rc)
 if(NOT SKIP_VERSION)
 set(KUT_VERSION_MAJOR 1)
-set(KUT_VERSION_MINOR 1.2d1)
+set(KUT_VERSION_MINOR 2.0)
 
 execute_process (COMMAND git rev-parse --short HEAD OUTPUT_VARIABLE
                 KUT_VERSION_BUILD OUTPUT_STRIP_TRAILING_WHITESPACE)
