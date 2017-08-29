@@ -23,6 +23,6 @@ echo "========================================================================"
 show_line
 echo "@@ Run unit tests..."
 cd build/tests/ut/jparser
-ut_jparser -v -ojunit
+./ut_jparser -v -ojunit
 
 exit $?
