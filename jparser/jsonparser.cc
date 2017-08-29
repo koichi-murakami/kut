@@ -397,6 +397,31 @@ int JsonParser::GetIntValue(const char* key) const
 }
 
 // --------------------------------------------------------------------------
+long JsonParser::GetLongValue(const char* key) const
+{
+  const picojson::object& obj = data_map_.get<picojson::object>();
+  bool is_found{false};
+  picojson::value val = ::SearchKeyValue(key, obj, is_found);
+
+  if ( ! is_found ) {
+    std::stringstream ss;
+    ss << "JsonParser::GetLongValue() key is not found." << std::endl
+       << key;
+    ::ThrowException(ss.str());
+  }
+
+  if ( ! val.is<double>() ) {
+    std::stringstream ss;
+    ss << "JsonParser::GetLongValue() not a double/int." << std::endl
+       << key;
+    ::ThrowException(ss.str());
+  }
+
+  long long_value = val.get<double>();
+  return long_value;
+}
+
+// --------------------------------------------------------------------------
 double JsonParser::GetDoubleValue(const char* key) const
 {
   const picojson::object& obj = data_map_.get<picojson::object>();
@@ -513,6 +538,43 @@ std::size_t JsonParser::GetIntArray(const char* key, iarray_t& iarray) const
       return 0;
     }
     iarray.push_back(item.get<double>());
+  }
+
+  return size;
+}
+
+// --------------------------------------------------------------------------
+std::size_t JsonParser::GetLongArray(const char* key, larray_t& larray) const
+{
+  const picojson::object& obj = data_map_.get<picojson::object>();
+  bool is_found{false};
+  picojson::value val = ::SearchKeyValue(key, obj, is_found);
+
+  if ( ! is_found ) {
+    std::stringstream ss;
+    ss << "JsonParser::GetLongArray() key is not found." << std::endl
+       << key;
+    ::ThrowException(ss.str());
+  }
+
+  if ( ! val.is<picojson::array>() ) {
+    std::stringstream ss;
+    ss << "JsonParser::GetLongArray() not an array." << std::endl
+       << key;
+    ::ThrowException(ss.str());
+  }
+
+  const picojson::array& array = val.get<picojson::array>();
+  larray.clear();
+
+  auto size = array.size();
+  for ( auto& item : array ) {
+    if ( ! item.is<double>() ) {
+      std::cout << "JsonParser::GetLongArray() not a double/long. "
+                << key << std::endl;
+      return 0;
+    }
+    larray.push_back(item.get<double>());
   }
 
   return size;
