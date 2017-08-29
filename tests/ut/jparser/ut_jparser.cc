@@ -11,9 +11,9 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include "jsonparser.h"
 #include "CppUTest/CommandLineTestRunner.h"
 #include "CppUTest/TestHarness.h"
-#include "jsonparser.h"
 
 using namespace kut;
 

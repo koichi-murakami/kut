@@ -8,10 +8,10 @@
   implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   See the License for more information.
 ============================================================================*/
+#include <stdlib.h>
+#include "timehistory.h"
 #include "CppUTest/CommandLineTestRunner.h"
 #include "CppUTest/TestHarness.h"
-#include "timehistory.h"
-#include <stdlib.h>
 
 using namespace kut;
 
