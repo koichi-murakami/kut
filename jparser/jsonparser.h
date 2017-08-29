@@ -25,6 +25,7 @@ class JsonParser {
 public:
   typedef std::vector<bool> barray_t;
   typedef std::vector<int> iarray_t;
+  typedef std::vector<long> larray_t;
   typedef std::vector<double> darray_t;
   typedef std::vector<std::string> sarray_t;
 
@@ -37,11 +38,13 @@ public:
 
   bool GetBoolValue(const char* key) const;
   int GetIntValue(const char* key) const;
+  long GetLongValue(const char* key) const;
   double GetDoubleValue(const char* key) const;
   std::string GetStringValue(const char* key) const;
 
   std::size_t GetBoolArray(const char* key, barray_t& barray) const;
   std::size_t GetIntArray(const char* key, iarray_t& iarray) const;
+  std::size_t GetLongArray(const char* key, larray_t& larray) const;
   std::size_t GetDoubleArray(const char* key, darray_t& darray) const;
   std::size_t GetStringArray(const char* key, sarray_t& sarray) const;
 
