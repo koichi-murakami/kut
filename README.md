@@ -9,12 +9,11 @@ A set of misc. c++ utility libraries for generic application.
 * `jparser` : Extended JSON parser (JSON5)
 * `thistory` : Time counting and event history in app
 
-## Version
 * [Releases](https://github.com/koichi-murakami/kut/releases)
 * [Issues](https://github.com/koichi-murakami/kut/issues)
 
 ## Code samples - how to work
-### jparser
+### JSON Parser
 Extended JSON parser (JSON5).
 Accessing parameters with key-values map.
 Keys are structured with "/" like Unix directory traversal.
@@ -89,7 +88,7 @@ yesorno : true
 yesorno_list : [true,false]
 ~~~~
 
-### thistory
+### Time History
 Utility tools for time counting and event history.
 
 ~~~~
