@@ -4,7 +4,7 @@
 
 Copyright (c) 2017, Koichi Murakami
 
-A set of misc. utilities
+A set of misc. c++ utility libraries for generic application.
 
 * `jparser` : Extended JSON parser (JSON5)
 * `thistory` : Time counting and event history in app
