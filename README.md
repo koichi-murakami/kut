@@ -6,11 +6,12 @@ Copyright (c) 2017, Koichi Murakami
 
 A set of misc. c++ utility libraries for generic application.
 
-* `jparser` : Extended JSON parser (JSON5)
-* `thistory` : Time counting and event history in app
-
 * [Releases](https://github.com/koichi-murakami/kut/releases)
 * [Issues](https://github.com/koichi-murakami/kut/issues)
+
+Components:
+* `jparser` : Extended JSON parser (JSON5)
+* `thistory` : Time counting and event history in app
 
 ## Code samples - how to work
 ### JSON Parser
