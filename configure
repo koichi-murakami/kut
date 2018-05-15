@@ -28,7 +28,7 @@ Installation directories:
 Enable/disable options: prefix with either --enable- or --disable-
   opt      optimization (O3) [enable]
   debug    debug mode [disable]
-  dev      development mode [config.cmake/disable]
+  dev      development mode [disable]
 
 After configuration is done,
 cd build
@@ -57,7 +57,7 @@ echo "========================================================================"
 prefix=_cmake
 enable_opt=1
 enable_debug=0
-enable_dev=_cmake
+enable_dev=0
 
 # parsing options
 while test $# -gt 0
