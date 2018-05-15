@@ -12,8 +12,8 @@
 #define THISTORY_VERSION_H_
 
 #define THISTORY_VERSION_MAJOR "1"
-#define THISTORY_VERSION_MINOR "2.1"
-#define THISTORY_VERSION_BUILD 0xb091af7
+#define THISTORY_VERSION_MINOR "2.2"
+#define THISTORY_VERSION_BUILD 0x2e47ca1
 
 namespace {
   const int build_head = (THISTORY_VERSION_BUILD & 0xffff000) >> 12;
