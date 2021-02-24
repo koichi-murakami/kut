@@ -33,6 +33,7 @@ find_path(CPPUTEST_LIBRARY_DIRS libCppUTest.a
           HINTS ${CPPUTEST_DIR}/lib64 ${CPPUTEST_DIR}/lib
                 ${PC_CPPUTEST_LIBRARY_DIRS}
                 /usr/lib64 /usr/lib
+                /usr/lib/x86_64-linux-gnu
                 /usr/lib/powerpc64le-linux-gnu )
 if(CPPUTEST_LIBRARY_DIRS MATCHES "^.*-NOTFOUND")
   set(CPPUTEST_FOUND 0)
