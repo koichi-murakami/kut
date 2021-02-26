@@ -1,13 +1,13 @@
-/* aaaa
-*  hoge fuga
-*  cc
-*/
+// JSON5 test pattern (for generic parser test)
 
-// JSON5 test pattern
+/* 
+* block comments 
+*/
 
 {
   // global parameters
   yesorno : true,
+  yesorno_list : [ true, false],
 
   // -----------------------------------------------------------------
   // primary setting
