@@ -1,7 +1,7 @@
 #
 #  CMakeLists.txt for buidlig kut
 #
-#  Copyright 2017 Koichi Murakami
+#  Copyright 2017-2021 Koichi Murakami
 #
 #  ***************************
 #  !! DONOT EDIT THIS FILE  !!
