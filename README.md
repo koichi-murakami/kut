@@ -1,6 +1,6 @@
 # kut-c++
 
-[![Build Status](https://travis-ci.org/koichi-murakami/kut.svg?branch=main)](https://travis-ci.org/koichi-murakami/kut)
+[![Build Status](https://travis-ci.com/koichi-murakami/kut.svg?branch=main)](https://travis-ci.com/koichi-murakami/kut)
 
 Copyright (c) 2017-2021, Koichi Murakami
 
