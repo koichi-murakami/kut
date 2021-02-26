@@ -20,5 +20,8 @@
 *.a
 
 # Directories
-build/
+build*/
+config/
 *zzz/
+.vscode/
+.vs/
