@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/koichi-murakami/kut.svg?branch=master)](https://travis-ci.org/koichi-murakami/kut)
 
-Copyright (c) 2017, Koichi Murakami
+Copyright (c) 2017-2021, Koichi Murakami
 
 A set of misc. c++ utility libraries for generic application.
 
@@ -118,7 +118,7 @@ The following software is used for the library.
 ## License
 BSD 2-Clause License
 
-Copyright (c) 2017, Koichi Murakami
+Copyright (c) 2017-2021, Koichi Murakami
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
