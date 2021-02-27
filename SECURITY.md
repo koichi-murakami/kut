@@ -1,12 +1,13 @@
 # Security Policy
 
-## Supported Versions
+## Security Information
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+There are no security issues found for this project.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 2.0.0   | :white_check_mark: |
-| 1.x     | :x:                |
 
+## Reporting a Vulnerability
+
+Report (suspected) security vulnerabilities to the lead maintainer. 
+We appreciate your efforts and responsible disclosure and will make every effort to acknowledge your contributions.
+If the issue is confirmed, we will release a patch as soon as possible depending on complexity.
+Report security vulnerabilities in third-party modules to the person or team maintaining the module.
