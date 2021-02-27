@@ -1,4 +1,4 @@
-# kut-c++
+# kut/c++
 
 [![Build Status](https://travis-ci.com/koichi-murakami/kut.svg?branch=main)](https://travis-ci.com/koichi-murakami/kut)
 
