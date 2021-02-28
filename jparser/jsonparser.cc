@@ -41,7 +41,6 @@ namespace {
       return;
     }
 
-    // care for "****...."
     if ( del_included && pos0 != 0 ) {
       for ( std::size_t i = 0; i < pos0 ; i++ ) {
         tokens.push_back(str.substr(i,1));
@@ -80,7 +79,7 @@ namespace {
   }
 
   // --------------------------------------------------------------------------
-  std::string DoubleQuoate(std::string& str, bool forced = true)
+  std::string DoubleQuoate(const std::string& str, bool forced = true)
   {
     // convert to double quoted string
     // forced flag for unquoted strings
@@ -97,7 +96,7 @@ namespace {
     }
     return obj_str;
   }
-
+  
 // --------------------------------------------------------------------------
 void RemoveComments(std::string& str)
 {
@@ -193,7 +192,7 @@ void ConvertToJson(std::string& str)
 
       // parse string:value
       obj_vec.clear();
-      Tokenize(item2, obj_vec, ":");
+      Tokenize(item2, obj_vec, ":", true);
       auto nvec = obj_vec.size();
       if  ( nvec == 0 ) {
         std::stringstream message;
@@ -213,11 +212,18 @@ void ConvertToJson(std::string& str)
           has_value = true;
         }
       }
-      if ( ! has_value ) ss << obj_str << ": ";
-      else {
+      
+      if ( ! has_value ) {
+        ss << obj_str;
+      } else {
         if ( value_str[0] == '+' ) value_str.replace(0, 1, "");
         if ( value_str[0] == '.' ) value_str.replace(0, 1, "0.");
-        ss << obj_str << ":" << value_str;
+
+        if ( value_str[0] == ':' ) {
+          if ( value_str[1] == '+' ) value_str.replace(1, 1, "");
+          if ( value_str[1] == '.' ) value_str.replace(1, 1, "0.");  
+        }
+        ss << obj_str << value_str;
         write_comma = true;
       }
     }  // tokenize with "{}"
@@ -243,7 +249,7 @@ value SearchKeyValue(const char* key, const object& obj, bool& is_found)
   for ( const auto& akey : key_vec ) {
     try {
       aval = aobj.at(akey);
-    } catch ( std::out_of_range& e ) {
+    } catch ( std::out_of_range& ) {
       is_found = false;
       return picojson::value();
     }
@@ -383,7 +389,7 @@ int JsonParser::GetIntValue(const char* key) const
     ::ThrowException(ss.str());
   }
 
-  int int_value = val.get<double>();
+  int int_value = static_cast<int>(val.get<double>());
   return int_value;
 }
 
