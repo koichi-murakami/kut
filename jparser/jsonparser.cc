@@ -19,84 +19,90 @@ using namespace picojson;
 // --------------------------------------------------------------------------
 namespace {
 
-  // --------------------------------------------------------------------------
-  void ThrowException(const std::string& message)
-  {
-    std::stringstream ss;
-    ss << "[ERROR] " << message << std::endl;
-    throw std::runtime_error(ss.str());
+// --------------------------------------------------------------------------
+void ThrowException(const std::string& message)
+{
+  std::stringstream ss;
+  ss << "[ERROR] " << message << std::endl;
+  throw std::runtime_error(ss.str());
+}
+
+// --------------------------------------------------------------------------
+void Tokenize(const std::string& str, std::vector<std::string>& tokens,
+             const char* delimiter = " ", bool del_included = false)
+{
+  auto pos0 = str.find_first_not_of(delimiter);
+  auto pos = str.find_first_of(delimiter, pos0);
+
+  if ( del_included && pos0 == std::string::npos ) {
+    for ( std::size_t i = 0; i < str.size() ; i++ ) {
+      tokens.push_back(str.substr(i,1));
+    }
+    return;
   }
 
-  // --------------------------------------------------------------------------
-  void Tokenize(const std::string& str, std::vector<std::string>& tokens,
-                const char* delimiter = " ", bool del_included = false)
-  {
-    auto pos0= str.find_first_not_of(delimiter);
-    auto pos = str.find_first_of(delimiter, pos0);
+  if ( del_included && pos0 != 0 ) {
+    for ( std::size_t i = 0; i < pos0 ; i++ ) {
+      tokens.push_back(str.substr(i,1));
+    }
+  }
 
-    if ( del_included && pos0 == std::string::npos ) {
-      for ( std::size_t i = 0; i < str.size() ; i++ ) {
-        tokens.push_back(str.substr(i,1));
+  while ( pos0 != std::string::npos ) {
+    tokens.push_back(str.substr(pos0, pos-pos0));
+    pos0 = str.find_first_not_of(delimiter, pos);
+    if ( del_included && pos != std::string::npos ) {
+      if ( pos0 == std::string::npos ) {
+        pos0 = str.size();
       }
-      return;
-    }
-
-    if ( del_included && pos0 != 0 ) {
-      for ( std::size_t i = 0; i < pos0 ; i++ ) {
-        tokens.push_back(str.substr(i,1));
+      for ( auto i = pos; i < pos0 ; i++ ) {
+        tokens.push_back(str.substr(i, 1));
       }
     }
+    pos = str.find_first_of(delimiter, pos0);
+  }
+}
 
-    while ( pos0 != std::string::npos ) {
-      tokens.push_back(str.substr(pos0, pos-pos0));
-      pos0 = str.find_first_not_of(delimiter, pos);
-      if ( del_included && pos != std::string::npos ) {
-        if ( pos0 == std::string::npos ) pos0 = str.size();
-        for ( auto i = pos; i < pos0 ; i++ )
-          tokens.push_back(str.substr(i, 1));
-      }
-      pos = str.find_first_of(delimiter, pos0);
-    }
+// --------------------------------------------------------------------------
+std::string Trim(const std::string& str)
+{
+  auto str0 = str;
+
+  // replace TAB -> space
+  std::size_t pos = 0;
+  while ( ( pos = str0.find('\t', pos) ) != std::string::npos ) {
+    str0.replace(pos, 1, " ");
   }
 
-  // --------------------------------------------------------------------------
-  std::string Trim(const std::string& str)
-  {
-    auto str0 = str;
+  // trimming first/last white space
+  auto idx_first = str0.find_first_not_of(" ");
+  auto idx_last = str0.find_last_not_of(" ");
 
-    // replace TAB -> space
-    std::size_t pos = 0;
-    while ( ( pos = str0.find('\t', pos) ) != std::string::npos ) {
-      str0.replace(pos, 1, " ");
-    }
-
-    // trimming first/last white space
-    auto idx_first = str0.find_first_not_of(" ");
-    auto idx_last = str0.find_last_not_of(" ");
-
-    if ( idx_first == std::string::npos ) return "";
-    else return str0.substr(idx_first, idx_last-idx_first+1);
+  if ( idx_first == std::string::npos ) {
+    return "";
+  } else {
+    return str0.substr(idx_first, idx_last-idx_first+1);
   }
+}
 
-  // --------------------------------------------------------------------------
-  std::string DoubleQuote(const std::string& str, bool forced = true)
-  {
-    // convert to double quoted string
-    // forced flag for unquoted strings
-    auto obj_str = Trim(str);
+ // --------------------------------------------------------------------------
+ std::string DoubleQuote(const std::string& str, bool forced = true)
+ {
+  // convert to double quoted string
+  // forced flag for unquoted strings
+  auto obj_str = Trim(str);
 
-    if ( forced && obj_str.find_first_of("\'\"") == std::string::npos ) {
-      obj_str = "\"" + obj_str + "\"";
-    }
-    auto idx0 = obj_str.find_first_of('\'');
-    auto idx1 = obj_str.find_last_of('\'');
-    if ( idx0 != std::string::npos && idx1 != std::string::npos ) {
-      obj_str[idx0] = '\"';
-      obj_str[idx1] = '\"';
-    }
-    return obj_str;
+  if ( forced && obj_str.find_first_of("\'\"") == std::string::npos ) {
+    obj_str = "\"" + obj_str + "\"";
   }
-  
+  auto idx0 = obj_str.find_first_of('\'');
+  auto idx1 = obj_str.find_last_of('\'');
+  if ( idx0 != std::string::npos && idx1 != std::string::npos ) {
+    obj_str[idx0] = '\"';
+    obj_str[idx1] = '\"';
+  }
+  return obj_str;
+}
+
 // --------------------------------------------------------------------------
 void RemoveComments(std::string& str)
 {
@@ -156,7 +162,6 @@ void ConvertToJson(std::string& str)
   int depth {0};
 
   for ( auto& item : token_vec ) {
-    //std::cout << "@@@" << item << std::endl;
     subtoken_vec.clear();
     Tokenize(item, subtoken_vec, "{}", true);
     int nloop {0};
@@ -212,7 +217,7 @@ void ConvertToJson(std::string& str)
           has_value = true;
         }
       }
-      
+
       if ( ! has_value ) {
         ss << obj_str;
       } else {
@@ -221,7 +226,7 @@ void ConvertToJson(std::string& str)
 
         if ( value_str[0] == ':' ) {
           if ( value_str[1] == '+' ) value_str.replace(1, 1, "");
-          if ( value_str[1] == '.' ) value_str.replace(1, 1, "0.");  
+          if ( value_str[1] == '.' ) value_str.replace(1, 1, "0.");
         }
         ss << obj_str << value_str;
         write_comma = true;
@@ -246,6 +251,7 @@ value SearchKeyValue(const char* key, const object& obj, bool& is_found)
   Tokenize(key, key_vec, "/");
   picojson::value aval;
   picojson::object aobj = obj;
+
   for ( const auto& akey : key_vec ) {
     try {
       aval = aobj.at(akey);
@@ -414,14 +420,14 @@ long JsonParser::GetLongValue(const char* key) const
     ::ThrowException(ss.str());
   }
 
-  long long_value = val.get<double>();
+  long long_value = static_cast<long>(val.get<double>());
   return long_value;
 }
 
 // --------------------------------------------------------------------------
 float JsonParser::GetFloatValue(const char* key) const
 {
-  return float(GetDoubleValue(key));
+  return static_cast<float>(GetDoubleValue(key));
 }
 
 // --------------------------------------------------------------------------
@@ -540,7 +546,7 @@ std::size_t JsonParser::GetIntArray(const char* key, iarray_t& iarray) const
                 << key << std::endl;
       return 0;
     }
-    iarray.push_back(item.get<double>());
+    iarray.push_back(static_cast<int>(item.get<double>()));
   }
 
   return size;
@@ -577,7 +583,7 @@ std::size_t JsonParser::GetLongArray(const char* key, larray_t& larray) const
                 << key << std::endl;
       return 0;
     }
-    larray.push_back(item.get<double>());
+    larray.push_back(static_cast<long>(item.get<double>()));
   }
 
   return size;
