@@ -10,12 +10,12 @@
   "Primary" : {
     // primary type (gun / beam)
     type : 'gun',
-    number : 100, 
+    number : 100,
 
     // particle starting position (x,y,z) in cm (z >= -100)
     position : [ 5., +.1, +100. ],
 
-    legend : ["x1", "y2", "z3"],
+    legend : [":x1:", "y+2", "z3..."],
 
   },
 
