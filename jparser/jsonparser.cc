@@ -298,7 +298,7 @@ JsonParser* JsonParser::GetJsonParser()
 }
 
 // --------------------------------------------------------------------------
-bool JsonParser::LoadFile(const std::string& fname)
+bool JsonParser::LoadFile(const std::string& fname, const std::string& json_name)
 {
   std::fstream fs;
   fs.open(fname.c_str());
@@ -330,11 +330,18 @@ bool JsonParser::LoadFile(const std::string& fname)
               << json_string << std::endl << std::endl;
 #endif
 
-  std::string error = picojson::parse(data_map_, json_string);
+  picojson::value json_data;
+  std::string error = picojson::parse(json_data, json_string);
   if ( ! error.empty() ) {
     std::cerr << "[ERROR] JsonParser::LoadFile() error in JSON parsing. "
               << std::endl << error << std::endl;
     return false;
+  }
+
+  json_list[json_name] = json_data;
+
+  if ( json_name == "default") {
+    data_map_ = json_data;
   }
 
   return true;
@@ -674,6 +681,19 @@ std::size_t JsonParser::GetStringArray(const char* key, sarray_t& sarray) const
   }
 
   return size;
+}
+
+// --------------------------------------------------------------------------
+void JsonParser::SetJsonData(const std::string& name)
+{
+  auto it = json_list.find(name);
+  if ( it != json_list.end() ) {
+    data_map_ = json_list[name];
+  } else {
+    std::stringstream ss;
+    ss << "JsonParser::SetJsonData() JSON data not found. " << name << std::endl;
+    ::ThrowException(ss.str());
+  }
 }
 
 // --------------------------------------------------------------------------

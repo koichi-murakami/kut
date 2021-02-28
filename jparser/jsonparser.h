@@ -11,6 +11,7 @@
 #ifndef JSON_PARSER_H_
 #define JSON_PARSER_H_
 
+#include <map>
 #include <string>
 #include <vector>
 #include "picojson.h"
@@ -29,7 +30,7 @@ public:
   static JsonParser* GetJsonParser();
   ~JsonParser() = default;
 
-  bool LoadFile(const std::string& fname);
+  bool LoadFile(const std::string& fname, const std::string& json_name = "default");
 
   bool Contains(const char* key) const;
 
@@ -47,14 +48,17 @@ public:
   std::size_t GetDoubleArray(const char* key, darray_t& darray) const;
   std::size_t GetStringArray(const char* key, sarray_t& sarray) const;
 
+  void SetJsonData(const std::string& name);
+
   void DumpAll() const;
 
 private:
   JsonParser() = default;
-  JsonParser(const JsonParser&) = delete;    
+  JsonParser(const JsonParser&) = delete;
   void operator=(const JsonParser&) = delete;
 
   picojson::value data_map_;
+  std::map<std::string, picojson::value> json_list;
 
 };
 

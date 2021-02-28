@@ -100,6 +100,15 @@ int main(int argc, char** argv)
     std::exit(EXIT_FAILURE);
   }
 
+  qload = jparser-> LoadFile(config_file, "JSON-B");
+  if ( ! qload ) {
+    std::cout << "[ERROR] failed on loading a config file. "
+              << config_file << std::endl;
+    std::exit(EXIT_FAILURE);
+  }
+
+  jparser-> SetJsonData("JSON-B");
+
   // ----------------------------------------------------------------------
   std::cout << "------------------------------" << std::endl;
   std::cout << "@@@ dump JSON data" << std::endl;
