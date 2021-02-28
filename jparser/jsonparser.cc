@@ -79,7 +79,7 @@ namespace {
   }
 
   // --------------------------------------------------------------------------
-  std::string DoubleQuoate(const std::string& str, bool forced = true)
+  std::string DoubleQuote(const std::string& str, bool forced = true)
   {
     // convert to double quoted string
     // forced flag for unquoted strings
@@ -182,7 +182,7 @@ void ConvertToJson(std::string& str)
       if ( write_comma ) ss << ",";
 
       if ( item2.find(':') == std::string::npos ) {
-        std::string value_only_str = DoubleQuoate(item2, false);
+        std::string value_only_str = DoubleQuote(item2, false);
         if ( value_only_str[0] == '+' ) value_only_str.replace(0, 1, "");
         if ( value_only_str[0] == '.' ) value_only_str.replace(0, 1, "0.");
         ss << value_only_str;
@@ -199,16 +199,16 @@ void ConvertToJson(std::string& str)
         message << "jsonparser : unexpected error (no token)";
         ThrowException(message.str());
       }
-      obj_str = DoubleQuoate(obj_vec[0]);
+      obj_str = DoubleQuote(obj_vec[0]);
       if ( nvec == 1 ) {
         has_value = false;
       } else if ( nvec == 2 ) {
-        value_str = DoubleQuoate(obj_vec[1], false);
+        value_str = DoubleQuote(obj_vec[1], false);
         has_value = true;
       } else {
         value_str = "";
         for ( auto it = begin(obj_vec)+1; it != end(obj_vec); ++it ) {
-          value_str += DoubleQuoate(*it, false);
+          value_str += DoubleQuote(*it, false);
           has_value = true;
         }
       }
