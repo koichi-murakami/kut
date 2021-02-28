@@ -1,5 +1,5 @@
 /*============================================================================
-  Copyright 2017 Koichi Murakami
+  Copyright 2017-2021 Koichi Murakami
 
   Distributed under the OSI-approved BSD License (the "License");
   see accompanying file LICENSE for details.
@@ -13,7 +13,7 @@
 
 #define THISTORY_VERSION_MAJOR "2"
 #define THISTORY_VERSION_MINOR "0.0"
-#define THISTORY_VERSION_BUILD 0xc0fc43d
+#define THISTORY_VERSION_BUILD 0x13f5c21
 
 namespace {
   const int build_head = (THISTORY_VERSION_BUILD & 0xffff000) >> 12;
