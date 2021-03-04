@@ -298,7 +298,9 @@ JsonParser* JsonParser::GetJsonParser()
 }
 
 // --------------------------------------------------------------------------
-bool JsonParser::LoadFile(const std::string& fname, const std::string& json_name)
+bool JsonParser::LoadFile(const std::string& fname,
+                          const std::string& json_name,
+                          bool raw_mode)
 {
   std::fstream fs;
   fs.open(fname.c_str());
@@ -317,12 +319,24 @@ bool JsonParser::LoadFile(const std::string& fname, const std::string& json_name
   }
   fs.close();
 
-  std::string json_string = ss.str();
-  try {
-    ::ConvertToJson(json_string);
-  } catch ( std::exception& e ) {
-    std::cerr << e.what() << std::endl;
-    return false;
+  auto qok = LoadString(ss.str(), json_name, raw_mode);
+  return qok;
+}
+
+// --------------------------------------------------------------------------
+bool JsonParser::LoadString(const std::string& jstring,
+                            const std::string& json_name,
+                            bool raw_mode)
+{
+  std::string json_string = jstring;
+
+  if ( ! raw_mode ) {
+    try {
+      ::ConvertToJson(json_string);
+    } catch ( std::exception& e ) {
+      std::cerr << e.what() << std::endl;
+      return false;
+    }
   }
 
 #ifdef DEBUG
@@ -333,8 +347,8 @@ bool JsonParser::LoadFile(const std::string& fname, const std::string& json_name
   picojson::value json_data;
   std::string error = picojson::parse(json_data, json_string);
   if ( ! error.empty() ) {
-    std::cerr << "[ERROR] JsonParser::LoadFile() error in JSON parsing. "
-              << std::endl << error << std::endl;
+    std::cerr << "[ERROR] JsonParser::LoadString() error in JSON parsing. "
+    << std::endl << error << std::endl;
     return false;
   }
 

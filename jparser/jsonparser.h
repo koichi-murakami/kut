@@ -30,7 +30,13 @@ public:
   static JsonParser* GetJsonParser();
   ~JsonParser() = default;
 
-  bool LoadFile(const std::string& fname, const std::string& json_name = "default");
+  bool LoadFile(const std::string& fname,
+                const std::string& json_name = "default",
+                bool raw_mode = false);
+
+  bool LoadString(const std::string& jstring,
+                 const std::string& json_name = "default",
+                 bool raw_mode = false);
 
   bool Contains(const char* key) const;
 
