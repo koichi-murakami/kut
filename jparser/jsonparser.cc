@@ -684,7 +684,7 @@ std::size_t JsonParser::GetStringArray(const char* key, sarray_t& sarray) const
 }
 
 // --------------------------------------------------------------------------
-void JsonParser::SetJsonData(const std::string& name)
+void JsonParser::SelectJsonData(const std::string& name)
 {
   auto it = json_list.find(name);
   if ( it != json_list.end() ) {

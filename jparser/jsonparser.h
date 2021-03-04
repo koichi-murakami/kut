@@ -48,7 +48,7 @@ public:
   std::size_t GetDoubleArray(const char* key, darray_t& darray) const;
   std::size_t GetStringArray(const char* key, sarray_t& sarray) const;
 
-  void SetJsonData(const std::string& name);
+  void SelectJsonData(const std::string& name);
 
   void DumpAll() const;
 

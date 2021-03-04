@@ -107,7 +107,7 @@ int main(int argc, char** argv)
     std::exit(EXIT_FAILURE);
   }
 
-  jparser-> SetJsonData("JSON-B");
+  jparser-> SelectJsonData("JSON-B");
 
   // ----------------------------------------------------------------------
   std::cout << "------------------------------" << std::endl;
