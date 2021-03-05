@@ -19,27 +19,25 @@ Stopwatch::Stopwatch()
 }
 
 // --------------------------------------------------------------------------
-Stopwatch::~Stopwatch()
-{
-}
-
-// --------------------------------------------------------------------------
 void Stopwatch::Reset()
 {
-  start_clock_ = times(&start_time_);
+  times(&start_time_);
+  start_clock_ = g_clock::now();
 }
 
 // --------------------------------------------------------------------------
 void Stopwatch::Split()
 {
-  end_clock_ = times(&end_time_);
+  times(&end_time_);
+  end_clock_ = g_clock::now();
 }
 
 // --------------------------------------------------------------------------
 double Stopwatch::GetRealElapsed() const
 {
-  double diff = end_clock_ - start_clock_;
-  return diff / sysconf(_SC_CLK_TCK);
+  std::chrono::nanoseconds diff = end_clock_ - start_clock_;
+  double sec = diff.count() / 1.e9;
+  return sec;
 }
 
 // --------------------------------------------------------------------------
@@ -57,12 +55,21 @@ double Stopwatch::GetUserElapsed() const
 }
 
 // --------------------------------------------------------------------------
-const char* Stopwatch::GetClockTime() const
+std::string Stopwatch::GetClockTime() const
 {
-   time_t timer;
-   time(&timer);
+  g_clock::time_point now = g_clock::now();
 
-   return ctime(&timer);
+  time_t t = g_clock::to_time_t(now);
+
+  char buf[26];
+
+#ifdef _MSC_VER
+  ctime_s(buf, 26, &t);
+#else
+  ctime_r(&t, buf);
+#endif
+
+  return std::string(buf);
 }
 
 } // end of namespace

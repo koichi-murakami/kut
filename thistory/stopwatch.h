@@ -11,16 +11,42 @@
 #ifndef STOPWATCH_H_
 #define STOPWATCH_H_
 
-#include <sys/times.h>
+#include <chrono>
+#include <ctime>
+#include <string>
+
+#ifdef _MSC_VER
 #include <time.h>
+#define _SC_CLK_TCK  1
+
+extern "C" {
+  int sysconf(int);
+};
+
+struct tms {
+  clock_t tms_utime;    // user time
+  clock_t tms_stime;    // system time
+  clock_t tms_cutime;   // user time, children
+  clock_t tms_cstime;   // system time, children
+};
+
+extern "C" {
+  extern clock_t times(struct tms*);
+};
+
+#else
 #include <unistd.h>
+#include <sys/times.h>
+#endif
 
 namespace kut {
+
+ using g_clock = std::chrono::system_clock;
 
 class Stopwatch {
 public:
   Stopwatch();
-  ~Stopwatch();
+  ~Stopwatch() = default;
 
   void Reset();
   void Split();
@@ -29,10 +55,10 @@ public:
   double GetSystemElapsed() const;
   double GetUserElapsed() const;
 
-  const char* GetClockTime() const;
+  std::string GetClockTime() const;
 
 private:
-  clock_t start_clock_, end_clock_;
+  g_clock::time_point start_clock_, end_clock_;
   tms start_time_, end_time_;
 
 };
