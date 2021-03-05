@@ -7,25 +7,38 @@ script:
 
 matrix:
   include:
-  - os: linux
+  - compiler: gcc
+    os: linux
     dist: focal
     addons:
       apt:
         packages:
         - cpputest
         - libcpputest-dev
-    compiler:
-    - gcc
-    - clang
 
-  - os: linux
+  - compiler: clang
+    os: linux
+    dist: focal
+    addons:
+      apt:
+        packages:
+        - cpputest
+        - libcpputest-dev
+
+  - compiler: gcc
+    os: linux
     dist: bionic
     addons:
       apt:
         packages:
         - cpputest
         - libcpputest-dev
-    compiler:
-    - gcc
-    - clang
 
+  - compiler: clang
+    os: linux
+    dist: bionic
+    addons:
+      apt:
+        packages:
+        - cpputest
+        - libcpputest-dev
