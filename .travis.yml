@@ -1,9 +1,5 @@
 language: cpp
 
-compiler:
-  - gcc
-  - clang
-
 script:
   - g++ --version && cmake --version
   - ./configure && cd build && make && cd -
@@ -18,6 +14,10 @@ matrix:
         packages:
         - cpputest
         - libcpputest-dev
+    compiler:
+    - gcc
+    - clang
+
   - os: linux
     dist: bionic
     addons:
@@ -25,3 +25,7 @@ matrix:
         packages:
         - cpputest
         - libcpputest-dev
+    compiler:
+    - gcc
+    - clang
+
