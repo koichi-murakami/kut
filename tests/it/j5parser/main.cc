@@ -39,8 +39,8 @@ using namespace kut;
 int main(int argc, char** argv)
 {
   // optional parameters
-  bool qhelp = false;
-  bool qversion = false;
+  bool qhelp {false};
+  bool qversion {false};
 
   struct option long_options[] = {
     {"help",    no_argument,       NULL, 'h'},
@@ -50,7 +50,7 @@ int main(int argc, char** argv)
 
   int c;
   while (1) {
-    int option_index = -1;
+    int option_index {-1};
 
     c = getopt_long(argc, argv, "hv", long_options, &option_index);
 
