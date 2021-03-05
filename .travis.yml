@@ -5,22 +5,20 @@ compiler:
   - clang
 
 script:
-- g++ --version && cmake --version
-- ./configure && cd build && make && cd -
-- cd build && ctest
+  - g++ --version && cmake --version
+  - ./configure && cd build && make && cd -
+  - cd build && ctest
 
-jobs:
-  include:
-    - os: linux
-      - dist: focal
-      addons:
-        apt:
-          packages:
-           - cpputest
-           - libcpputest-dev
-      - dist: boniac
-      addons:
-        apt:
-          packages:
-           - cpputest
-           - libcpputest-dev
+dist: focal
+addons:
+  apt:
+    packages:
+    - cpputest
+    - libcpputest-dev
+
+dist: boniac
+addons:
+  apt:
+    packages:
+    - cpputest
+    - libcpputest-dev
