@@ -10,8 +10,17 @@
 ============================================================================*/
 #include <iostream>
 #include <iomanip>
+#include <mutex>
 #include "timehistory.h"
 
+// --------------------------------------------------------------------------
+namespace {
+
+std::mutex mtx;
+
+} // end of namespace
+
+// ==========================================================================
 namespace kut {
 // --------------------------------------------------------------------------
 TimeHistory* TimeHistory::GetTimeHistory()
@@ -27,7 +36,7 @@ TimeHistory::TimeHistory()
   split_history_.clear();
 
   sw_.Split();
-  t0_ = sw_.GetUserElapsed() + sw_.GetSystemElapsed();
+  t0_ = sw_.GetRealElapsed();
 }
 
 // --------------------------------------------------------------------------
@@ -73,6 +82,7 @@ double TimeHistory::GetTime(const std::string& key) const
 // --------------------------------------------------------------------------
 void TimeHistory::ShowHistory(const std::string& key) const
 {
+  ::mtx.lock();
   std::map<std::string, double>::const_iterator itr;
   itr = split_history_.find(key);
   if ( itr != split_history_.end() ) {
@@ -82,11 +92,13 @@ void TimeHistory::ShowHistory(const std::string& key) const
     std::cout << "[WARNING] TimeHistory::ShowHistory() cannot find a key. "
               << key << std::endl;
   }
+  ::mtx.unlock();
 }
 
 // --------------------------------------------------------------------------
 void TimeHistory::ShowAllHistories() const
 {
+  ::mtx.lock();
   std::multimap<double, std::string> histories_by_time;
   std::map<std::string, double>::const_iterator itr;
   for ( itr = split_history_.begin(); itr != split_history_.end(); ++itr) {
@@ -102,12 +114,15 @@ void TimeHistory::ShowAllHistories() const
               << std::fixed << std::setprecision(3)
               << itr2-> first << " s" << std::endl;
   }
+  ::mtx.unlock();
 }
 
 // --------------------------------------------------------------------------
 void TimeHistory::ShowClock(const std::string& prefix) const
 {
+  ::mtx.lock();
   std::cout << prefix << " " << sw_.GetClockTime() << std::flush;
+  ::mtx.unlock();
 }
 
 } // end of namespace
