@@ -9,16 +9,19 @@ script:
   - ./configure && cd build && make && cd -
   - cd build && ctest
 
-dist: focal
-addons:
-  apt:
-    packages:
-    - cpputest
-    - libcpputest-dev
-
-dist: boniac
-addons:
-  apt:
-    packages:
-    - cpputest
-    - libcpputest-dev
+matrix:
+  include:
+  - os: linux
+    dist: focal
+    addons:
+      apt:
+        packages:
+        - cpputest
+        - libcpputest-dev
+  - os: linux
+    dist: bionic
+    addons:
+      apt:
+        packages:
+        - cpputest
+        - libcpputest-dev
