@@ -6,7 +6,8 @@ compiler:
 
 script:
 - g++ --version && cmake --version
-- ./configure && cd build && make && ctest
+- ./configure && cd build && make && cd -
+- cd build && ctest
 
 jobs:
   include:
