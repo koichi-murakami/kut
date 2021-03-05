@@ -6,4 +6,20 @@ compiler:
 
 script:
 - g++ --version && cmake --version
-- ./configure && cd build && make
+- ./configure && cd build && make && ctest
+
+jobs:
+  include:
+    - os: linux
+      - dist: focal
+      addons:
+        apt:
+          packages:
+           - cpputest
+           - libcpputest-dev
+      - dist: boniac
+      addons:
+        apt:
+          packages:
+           - cpputest
+           - libcpputest-dev
