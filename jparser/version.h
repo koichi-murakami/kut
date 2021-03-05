@@ -13,7 +13,7 @@
 
 #define JPARSER_VERSION_MAJOR "2"
 #define JPARSER_VERSION_MINOR "0.0"
-#define JPARSER_VERSION_BUILD 0x01cf237
+#define JPARSER_VERSION_BUILD 0xd5f1d31
 
 namespace {
   const int build_head = (JPARSER_VERSION_BUILD & 0xffff000) >> 12;
