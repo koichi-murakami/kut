@@ -10,6 +10,38 @@
 ============================================================================*/
 #include "stopwatch.h"
 
+#ifdef _MSC_VER
+#include <sys/types.h>
+#include <windows.h>
+
+  // extract milliseconds time unit
+  int sysconf(int a)
+  {
+    if( a == _SC_CLK_TCK ) return 1000;
+    else return 0;
+  }
+
+  static clock_t filetime2msec(FILETIME* t)
+  {
+    return (clock_t)((((float)t-> dwHighDateTime)*429496.7296)+
+    (((float)t-> dwLowDateTime)*.0001) );
+  }
+
+  clock_t times(struct tms* t) {
+    FILETIME ct = {0,0}, et = {0,0}, st = {0,0}, ut = {0,0}, rt = {0,0};
+    SYSTEMTIME realtime;
+
+    GetSystemTime(&realtime);
+    SystemTimeToFileTime(&realtime, &rt ); // get real time in 10^-9 sec
+    if( t != 0 ) {
+      GetProcessTimes( GetCurrentProcess(), &ct, &et, &st, &ut);
+      t->tms_utime = t->tms_cutime = filetime2msec(&ut);
+      t->tms_stime = t->tms_cstime = filetime2msec(&st);
+    }
+    return filetime2msec(&rt);
+  }
+#endif
+
 namespace kut {
 
 // --------------------------------------------------------------------------
