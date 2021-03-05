@@ -15,20 +15,16 @@
 #include <string>
 #include "stopwatch.h"
 
-#ifndef DISALLOW_COPY_AND_ASSIGN
-#define DISALLOW_COPY_AND_ASSIGN(TypeName) \
-  TypeName(const TypeName&);               \
-  void operator=(const TypeName&)
-#endif
-
 namespace kut {
 
 class TimeHistory {
 public:
   static TimeHistory* GetTimeHistory();
-  ~TimeHistory();
+  ~TimeHistory() = default;
 
   void TakeSplit(const std::string& key);
+
+  double TakeSplit();
 
   bool FindAKey(const std::string& key) const;
 
@@ -42,7 +38,8 @@ public:
 
 private:
   TimeHistory();
-  DISALLOW_COPY_AND_ASSIGN(TimeHistory);
+  TimeHistory(const TimeHistory&) = delete;
+  void operator=(const TimeHistory&) = delete;
 
   Stopwatch sw_;
   double t0_;

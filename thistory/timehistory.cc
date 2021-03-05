@@ -31,16 +31,20 @@ TimeHistory::TimeHistory()
 }
 
 // --------------------------------------------------------------------------
-TimeHistory::~TimeHistory()
-{
-}
-
-// --------------------------------------------------------------------------
 void TimeHistory::TakeSplit(const std::string& key)
 {
   sw_.Split();
-  double split = sw_.GetUserElapsed() + sw_.GetSystemElapsed();
+  auto split = sw_.GetRealElapsed();
   split_history_[key] = split - t0_;
+}
+
+// --------------------------------------------------------------------------
+double TimeHistory::TakeSplit()
+{
+  sw_.Split();
+  auto split = sw_.GetRealElapsed();
+  auto t1 = split - t0_;
+  return t1;
 }
 
 // --------------------------------------------------------------------------
