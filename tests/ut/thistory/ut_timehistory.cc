@@ -19,7 +19,7 @@ using namespace kut;
 namespace {
 double do_something()
 {
-  double x = 0.;
+  double x {0.};
   for (auto i = 0; i < 10000; i++) {
     for (auto j = 0; j < 10000; j++) x += rand()/(double)RAND_MAX - 0.5;
   }
@@ -32,7 +32,7 @@ double do_something()
 TEST_GROUP(TimeHistory)
 {
   void setup() {
-    TimeHistory* th = TimeHistory::GetTimeHistory();
+    auto th = TimeHistory::GetTimeHistory();
   }
   void teardown() { }
 };
@@ -40,7 +40,7 @@ TEST_GROUP(TimeHistory)
 // --------------------------------------------------------------------------
 TEST(TimeHistory, TakeSplitAndFind)
 {
-  TimeHistory* th = TimeHistory::GetTimeHistory();
+  auto th = TimeHistory::GetTimeHistory();
   ::do_something();
   th-> TakeSplit("TakeSplitAndFind");
   CHECK(th-> FindAKey("TakeSplitAndFind"));
@@ -50,7 +50,7 @@ TEST(TimeHistory, TakeSplitAndFind)
 // --------------------------------------------------------------------------
 TEST(TimeHistory, GetTime)
 {
-  TimeHistory* th = TimeHistory::GetTimeHistory();
+  auto th = TimeHistory::GetTimeHistory();
   ::do_something();
   th-> TakeSplit("GetTime");
   double t = th-> GetTime("GetTime");
@@ -62,7 +62,7 @@ TEST(TimeHistory, GetTime)
 // --------------------------------------------------------------------------
 TEST(TimeHistory, ShowHistory)
 {
-  TimeHistory* th = TimeHistory::GetTimeHistory();
+  auto th = TimeHistory::GetTimeHistory();
   ::do_something();
   th-> TakeSplit("ShowHistory");
   th-> TakeSplit("ShowHistory2");
@@ -73,7 +73,7 @@ TEST(TimeHistory, ShowHistory)
 // --------------------------------------------------------------------------
 TEST(TimeHistory, ShowClock)
 {
-  TimeHistory* th = TimeHistory::GetTimeHistory();
+  auto th = TimeHistory::GetTimeHistory();
   ::do_something();
   th-> ShowClock("ShowClock:");
 }

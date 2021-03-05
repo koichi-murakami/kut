@@ -19,7 +19,7 @@ using namespace kut;
 namespace {
 double do_something()
 {
-  double x = 0.;
+  double x {0.};
   for (auto i = 0; i < 10000; i++) {
     for (auto j = 0; j < 10000; j++) x += rand()/(double)RAND_MAX - 0.5;
   }
@@ -38,7 +38,7 @@ TEST_GROUP(Stopwatch)
 // --------------------------------------------------------------------------
 TEST(Stopwatch, Split)
 {
-  Stopwatch* sw = new Stopwatch();
+  auto sw = new Stopwatch();
   ::do_something();
   sw-> Split();
   delete sw;
@@ -47,10 +47,10 @@ TEST(Stopwatch, Split)
 // --------------------------------------------------------------------------
 TEST(Stopwatch, GetRealElapsed)
 {
-  Stopwatch* sw = new Stopwatch();
+  auto sw = new Stopwatch();
   ::do_something();
   sw-> Split();
-  double t = sw-> GetRealElapsed();
+  auto t = sw-> GetRealElapsed();
   CHECK(t>0.);
   delete sw;
 }
@@ -58,10 +58,10 @@ TEST(Stopwatch, GetRealElapsed)
 // --------------------------------------------------------------------------
 TEST(Stopwatch, GetSystemElapsed)
 {
-  Stopwatch* sw = new Stopwatch();
+  auto sw = new Stopwatch();
   ::do_something();
   sw-> Split();
-  double t = sw-> GetSystemElapsed();
+  auto t = sw-> GetSystemElapsed();
   CHECK(t>=0.);
   delete sw;
 }
@@ -69,10 +69,10 @@ TEST(Stopwatch, GetSystemElapsed)
 // --------------------------------------------------------------------------
 TEST(Stopwatch, GeUserlElapsed)
 {
-  Stopwatch* sw = new Stopwatch();
+  auto sw = new Stopwatch();
   ::do_something();
   sw-> Split();
-  double t = sw-> GetUserElapsed();
+  auto t = sw-> GetUserElapsed();
   CHECK(t>0.);
   delete sw;
 }
@@ -80,8 +80,8 @@ TEST(Stopwatch, GeUserlElapsed)
 // --------------------------------------------------------------------------
 TEST(Stopwatch, GeClockTime)
 {
-  Stopwatch* sw = new Stopwatch();
-  const char* current_time = sw-> GetClockTime();
+  auto sw = new Stopwatch();
+  auto current_time = sw-> GetClockTime();
   delete sw;
 }
 

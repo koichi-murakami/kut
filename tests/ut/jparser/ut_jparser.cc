@@ -60,7 +60,7 @@ const std::string json_string = R"(// JSON5 test pattern
 TEST_GROUP(JsonParser)
 {
   void setup() {
-    JsonParser* jparser = JsonParser::GetJsonParser();
+    auto jparser = JsonParser::GetJsonParser();
     jparser-> LoadFile("sample.json5");
   }
 
@@ -70,14 +70,14 @@ TEST_GROUP(JsonParser)
 // --------------------------------------------------------------------------
 TEST(JsonParser, Parse)
 {
-  JsonParser* jparser = JsonParser::GetJsonParser();
+  auto jparser = JsonParser::GetJsonParser();
   CHECK(jparser-> LoadFile("sample.json5"));
 }
 
 // --------------------------------------------------------------------------
 TEST(JsonParser, Contains)
 {
-  JsonParser* jparser = JsonParser::GetJsonParser();
+  auto jparser = JsonParser::GetJsonParser();
   CHECK_FALSE(jparser-> Contains("hoge"));
   CHECK(jparser-> Contains("yesorno"));
   CHECK(jparser-> Contains("yesorno_list"));
@@ -89,9 +89,9 @@ TEST(JsonParser, Contains)
 // --------------------------------------------------------------------------
 TEST(JsonParser, Values)
 {
-  JsonParser* jparser = JsonParser::GetJsonParser();
+  auto jparser = JsonParser::GetJsonParser();
   CHECK_EQUAL(true, jparser-> GetBoolValue("yesorno"));
-  std::string sval = jparser-> GetStringValue("Primary/type");
+  auto sval = jparser-> GetStringValue("Primary/type");
   STRCMP_EQUAL("gun", sval.c_str());
   CHECK_EQUAL(100, jparser-> GetIntValue("Primary/number"));
   std::vector<int> ivec;
