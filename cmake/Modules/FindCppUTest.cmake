@@ -26,6 +26,8 @@ find_path(CPPUTEST_INCLUDE_DIRS CppUTest/CppUTestConfig.h
                 ${PC_CPPUTEST_INCLUDE_DIRS} /usr/include)
 if(CPPUTEST_INCLUDE_DIRS MATCHES "^.*-NOTFOUND")
   set(CPPUTEST_FOUND 0)
+else()
+  set(CPPUTEST_FOUND 1)
 endif()
 
 # find library path
