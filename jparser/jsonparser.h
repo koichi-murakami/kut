@@ -1,5 +1,5 @@
 /*============================================================================
-  Copyright 2017-2021 Koichi Murakami
+  Copyright 2017-2022 Koichi Murakami
 
   Distributed under the OSI-approved BSD License (the "License");
   see accompanying file License for details.
@@ -29,6 +29,9 @@ public:
 
   static JsonParser* GetJsonParser();
   ~JsonParser() = default;
+
+  JsonParser(const JsonParser&) = delete;
+  void operator=(const JsonParser&) = delete;
 
   bool LoadFile(const std::string& fname,
                 const std::string& json_name = "default",
@@ -60,8 +63,6 @@ public:
 
 private:
   JsonParser() = default;
-  JsonParser(const JsonParser&) = delete;
-  void operator=(const JsonParser&) = delete;
 
   picojson::value data_map_;
   std::map<std::string, picojson::value> json_list;
