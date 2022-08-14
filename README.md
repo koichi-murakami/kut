@@ -1,8 +1,8 @@
 # kut/c++
 
-[![Build Status](https://travis-ci.com/koichi-murakami/kut.svg?branch=main)](https://travis-ci.com/koichi-murakami/kut)
+[![Build Status](https://app.travis-ci.com/koichi-murakami/kut.svg?branch=main)](https://app.travis-ci.com/koichi-murakami/kut)
 
-Copyright (c) 2017-2021, Koichi Murakami
+Copyright (c) 2017-2022, Koichi Murakami
 
 A set of misc. c++ utility libraries for generic application.
 
