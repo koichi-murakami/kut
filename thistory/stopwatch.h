@@ -1,5 +1,5 @@
 /*============================================================================
-  Copyright 2017-2021 Koichi Murakami
+  Copyright 2017-2022 Koichi Murakami
 
   Distributed under the OSI-approved BSD License (the "License");
   see accompanying file License for details.
