@@ -1,8 +1,6 @@
 #
 #  CMakeLists.txt for buidlig kut
 #
-#  Copyright 2017-2021 Koichi Murakami
-#
 #  ***************************
 #  !! DONOT EDIT THIS FILE  !!
 #  ***************************
@@ -40,8 +38,8 @@ endif()
 # find packages
 find_package(CppUTest QUIET)
 
-# c++11
-set(CMAKE_CXX_STANDARD 11)
+# c++14
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # build options
@@ -70,7 +68,7 @@ message(STATUS "--------------------------------------------------------")
 # version.h (#.##d# + rev# / dev flag d/a/b/rc)
 if(NOT SKIP_VERSION)
 set(KUT_VERSION_MAJOR 2)
-set(KUT_VERSION_MINOR 0.0)
+set(KUT_VERSION_MINOR 1.0)
 
 execute_process (COMMAND git rev-parse --short HEAD OUTPUT_VARIABLE
                 KUT_VERSION_BUILD OUTPUT_STRIP_TRAILING_WHITESPACE)
