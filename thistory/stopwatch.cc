@@ -1,5 +1,5 @@
 /*============================================================================
-  Copyright 2017-2021 Koichi Murakami
+  Copyright 2017-2022 Koichi Murakami
 
   Distributed under the OSI-approved BSD License (the "License");
   see accompanying file License for details.
@@ -71,31 +71,31 @@ void Stopwatch::Split()
 // --------------------------------------------------------------------------
 double Stopwatch::GetRealElapsed() const
 {
-  std::chrono::nanoseconds diff = end_clock_ - start_clock_;
-  double sec = diff.count() / 1.e9;
+  auto diff = end_clock_ - start_clock_;
+  auto sec = diff.count() / 1.e9;
   return sec;
 }
 
 // --------------------------------------------------------------------------
 double Stopwatch::GetSystemElapsed() const
 {
-  double diff = end_time_.tms_stime - start_time_.tms_stime;
-  return diff / sysconf(_SC_CLK_TCK);
+  auto diff = end_time_.tms_stime - start_time_.tms_stime;
+  return (double)diff / sysconf(_SC_CLK_TCK);
 }
 
 // --------------------------------------------------------------------------
 double Stopwatch::GetUserElapsed() const
 {
-  double diff = end_time_.tms_utime - start_time_.tms_utime;
-  return diff / sysconf(_SC_CLK_TCK);
+  auto diff = end_time_.tms_utime - start_time_.tms_utime;
+  return (double)diff / sysconf(_SC_CLK_TCK);
 }
 
 // --------------------------------------------------------------------------
 std::string Stopwatch::GetClockTime() const
 {
-  g_clock::time_point now = g_clock::now();
+  auto now = g_clock::now();
 
-  time_t t = g_clock::to_time_t(now);
+  auto t = g_clock::to_time_t(now);
 
   char buf[26];
 
