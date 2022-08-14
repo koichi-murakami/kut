@@ -1,5 +1,5 @@
 /*============================================================================
-  Copyright 2017-2021 Koichi Murakami
+  Copyright 2017-2022 Koichi Murakami
 
   Distributed under the OSI-approved BSD License (the "License");
   see accompanying file License for details.
@@ -22,6 +22,9 @@ public:
   static TimeHistory* GetTimeHistory();
   ~TimeHistory() = default;
 
+  TimeHistory(const TimeHistory&) = delete;
+  TimeHistory& operator=(const TimeHistory&) = delete;
+
   void TakeSplit(const std::string& key);
 
   double TakeSplit();
@@ -38,8 +41,6 @@ public:
 
 private:
   TimeHistory();
-  TimeHistory(const TimeHistory&) = delete;
-  void operator=(const TimeHistory&) = delete;
 
   Stopwatch sw_;
   double t0_;
