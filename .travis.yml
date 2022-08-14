@@ -9,6 +9,24 @@ matrix:
   include:
   - compiler: gcc
     os: linux
+    dist: jammy
+    addons:
+      apt:
+        packages:
+        - cpputest
+        - libcpputest-dev
+
+  - compiler: clang
+    os: linux
+    dist: jammy
+    addons:
+      apt:
+        packages:
+        - cpputest
+        - libcpputest-dev
+
+  - compiler: gcc
+    os: linux
     dist: focal
     addons:
       apt:
