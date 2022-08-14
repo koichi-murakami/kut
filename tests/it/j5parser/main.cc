@@ -1,5 +1,5 @@
 /*============================================================================
-  Copyright 2017-2021 Koichi Murakami
+  Copyright 2017-2022 Koichi Murakami
 
   Distributed under the OSI-approved BSD License (the "License");
   see accompanying file License for details.
@@ -43,9 +43,9 @@ int main(int argc, char** argv)
   bool qversion {false};
 
   struct option long_options[] = {
-    {"help",    no_argument,       NULL, 'h'},
-    {"version", no_argument,       NULL, 'v'},
-    {NULL,      0,                 NULL,  0}
+    {"help",    no_argument,       0, 'h'},
+    {"version", no_argument,       0, 'v'},
+    {0,         0,                 0,  0}
   };
 
   int c;
@@ -92,8 +92,8 @@ int main(int argc, char** argv)
 
   // ----------------------------------------------------------------------
   // parsing config JSON file...
-  JsonParser* jparser = JsonParser::GetJsonParser();
-  bool qload = jparser-> LoadFile(config_file);
+  auto jparser = JsonParser::GetJsonParser();
+  auto qload = jparser-> LoadFile(config_file);
   if ( ! qload ) {
     std::cout << "[ERROR] failed on loading a config file. "
               << config_file << std::endl;
