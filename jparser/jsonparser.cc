@@ -1,5 +1,5 @@
 /*============================================================================
-  Copyright 2017-2021 Koichi Murakami
+  Copyright 2017-2022 Koichi Murakami
 
   Distributed under the OSI-approved BSD License (the "License");
   see accompanying file License for details.
@@ -328,7 +328,7 @@ bool JsonParser::LoadString(const std::string& jstring,
                             const std::string& json_name,
                             bool raw_mode)
 {
-  std::string json_string = jstring;
+  auto json_string = jstring;
 
   if ( ! raw_mode ) {
     try {
@@ -365,7 +365,7 @@ bool JsonParser::LoadString(const std::string& jstring,
 bool JsonParser::Contains(const char* key) const
 {
   bool is_found {false};
-  const picojson::object& obj = data_map_.get<picojson::object>();
+  const auto& obj = data_map_.get<picojson::object>();
 
   ::SearchKeyValue(key, obj, is_found);
   return is_found;
@@ -374,9 +374,9 @@ bool JsonParser::Contains(const char* key) const
 // --------------------------------------------------------------------------
 bool JsonParser::GetBoolValue(const char* key) const
 {
-  const picojson::object& obj = data_map_.get<picojson::object>();
+  const auto& obj = data_map_.get<picojson::object>();
   bool is_found {false};
-  picojson::value val = ::SearchKeyValue(key, obj, is_found);
+  auto val = ::SearchKeyValue(key, obj, is_found);
 
   if( ! is_found ) {
     std::stringstream ss;
@@ -398,9 +398,9 @@ bool JsonParser::GetBoolValue(const char* key) const
 // --------------------------------------------------------------------------
 int JsonParser::GetIntValue(const char* key) const
 {
-  const picojson::object& obj = data_map_.get<picojson::object>();
+  const auto& obj = data_map_.get<picojson::object>();
   bool is_found {false};
-  picojson::value val = ::SearchKeyValue(key, obj, is_found);
+  auto val = ::SearchKeyValue(key, obj, is_found);
 
   if ( ! is_found ) {
     std::stringstream ss;
@@ -416,16 +416,16 @@ int JsonParser::GetIntValue(const char* key) const
     ::ThrowException(ss.str());
   }
 
-  int int_value = static_cast<int>(val.get<double>());
+  auto int_value = static_cast<int>(val.get<double>());
   return int_value;
 }
 
 // --------------------------------------------------------------------------
 long JsonParser::GetLongValue(const char* key) const
 {
-  const picojson::object& obj = data_map_.get<picojson::object>();
+  const auto& obj = data_map_.get<picojson::object>();
   bool is_found {false};
-  picojson::value val = ::SearchKeyValue(key, obj, is_found);
+  auto val = ::SearchKeyValue(key, obj, is_found);
 
   if ( ! is_found ) {
     std::stringstream ss;
@@ -441,7 +441,7 @@ long JsonParser::GetLongValue(const char* key) const
     ::ThrowException(ss.str());
   }
 
-  long long_value = static_cast<long>(val.get<double>());
+  auto long_value = static_cast<long>(val.get<double>());
   return long_value;
 }
 
@@ -454,9 +454,9 @@ float JsonParser::GetFloatValue(const char* key) const
 // --------------------------------------------------------------------------
 double JsonParser::GetDoubleValue(const char* key) const
 {
-  const picojson::object& obj = data_map_.get<picojson::object>();
+  const auto& obj = data_map_.get<picojson::object>();
   bool is_found {false};
-  picojson::value val = ::SearchKeyValue(key, obj, is_found);
+  auto val = ::SearchKeyValue(key, obj, is_found);
 
   if( ! is_found ) {
     std::stringstream ss;
@@ -478,9 +478,9 @@ double JsonParser::GetDoubleValue(const char* key) const
 // --------------------------------------------------------------------------
 std::string JsonParser::GetStringValue(const char* key) const
 {
-  const picojson::object& obj = data_map_.get<picojson::object>();
+  const auto& obj = data_map_.get<picojson::object>();
   bool is_found {false};
-  picojson::value val = ::SearchKeyValue(key, obj, is_found);
+  auto val = ::SearchKeyValue(key, obj, is_found);
 
   if( ! is_found ) {
     std::stringstream ss;
@@ -502,9 +502,9 @@ std::string JsonParser::GetStringValue(const char* key) const
 // --------------------------------------------------------------------------
 std::size_t JsonParser::GetBoolArray(const char* key, barray_t& barray) const
 {
-  const picojson::object& obj = data_map_.get<picojson::object>();
+  const auto& obj = data_map_.get<picojson::object>();
   bool is_found {false};
-  picojson::value val = ::SearchKeyValue(key, obj, is_found);
+  auto val = ::SearchKeyValue(key, obj, is_found);
 
   if ( ! is_found ) {
     std::stringstream ss;
@@ -520,7 +520,7 @@ std::size_t JsonParser::GetBoolArray(const char* key, barray_t& barray) const
     ::ThrowException(ss.str());
   }
 
-  const picojson::array& array = val.get<picojson::array>();
+  const auto& array = val.get<picojson::array>();
   barray.clear();
 
   auto size = array.size();
@@ -539,9 +539,9 @@ std::size_t JsonParser::GetBoolArray(const char* key, barray_t& barray) const
 // --------------------------------------------------------------------------
 std::size_t JsonParser::GetIntArray(const char* key, iarray_t& iarray) const
 {
-  const picojson::object& obj = data_map_.get<picojson::object>();
+  const auto& obj = data_map_.get<picojson::object>();
   bool is_found {false};
-  picojson::value val = ::SearchKeyValue(key, obj, is_found);
+  auto val = ::SearchKeyValue(key, obj, is_found);
 
   if ( ! is_found ) {
     std::stringstream ss;
@@ -557,7 +557,7 @@ std::size_t JsonParser::GetIntArray(const char* key, iarray_t& iarray) const
     ::ThrowException(ss.str());
   }
 
-  const picojson::array& array = val.get<picojson::array>();
+  const auto& array = val.get<picojson::array>();
   iarray.clear();
 
   auto size = array.size();
@@ -576,9 +576,9 @@ std::size_t JsonParser::GetIntArray(const char* key, iarray_t& iarray) const
 // --------------------------------------------------------------------------
 std::size_t JsonParser::GetLongArray(const char* key, larray_t& larray) const
 {
-  const picojson::object& obj = data_map_.get<picojson::object>();
+  const auto& obj = data_map_.get<picojson::object>();
   bool is_found {false};
-  picojson::value val = ::SearchKeyValue(key, obj, is_found);
+  auto val = ::SearchKeyValue(key, obj, is_found);
 
   if ( ! is_found ) {
     std::stringstream ss;
@@ -594,7 +594,7 @@ std::size_t JsonParser::GetLongArray(const char* key, larray_t& larray) const
     ::ThrowException(ss.str());
   }
 
-  const picojson::array& array = val.get<picojson::array>();
+  const auto& array = val.get<picojson::array>();
   larray.clear();
 
   auto size = array.size();
@@ -626,9 +626,9 @@ std::size_t JsonParser::GetFloatArray(const char* key, farray_t& farray) const
 // --------------------------------------------------------------------------
 std::size_t JsonParser::GetDoubleArray(const char* key, darray_t& darray) const
 {
-  const picojson::object& obj = data_map_.get<picojson::object>();
+  const auto& obj = data_map_.get<picojson::object>();
   bool is_found {false};
-  picojson::value val = ::SearchKeyValue(key, obj, is_found);
+  auto val = ::SearchKeyValue(key, obj, is_found);
 
   if ( ! is_found ) {
     std::stringstream ss;
@@ -644,7 +644,7 @@ std::size_t JsonParser::GetDoubleArray(const char* key, darray_t& darray) const
     ::ThrowException(ss.str());
   }
 
-  const picojson::array& array = val.get<picojson::array>();
+  const auto& array = val.get<picojson::array>();
   darray.clear();
 
   auto size = array.size();
@@ -663,9 +663,9 @@ std::size_t JsonParser::GetDoubleArray(const char* key, darray_t& darray) const
 // --------------------------------------------------------------------------
 std::size_t JsonParser::GetStringArray(const char* key, sarray_t& sarray) const
 {
-  const picojson::object& obj = data_map_.get<picojson::object>();
+  const auto& obj = data_map_.get<picojson::object>();
   bool is_found {false};
-  picojson::value val = ::SearchKeyValue(key, obj, is_found);
+  auto val = ::SearchKeyValue(key, obj, is_found);
 
   if ( ! is_found ) {
     std::stringstream ss;
@@ -681,7 +681,7 @@ std::size_t JsonParser::GetStringArray(const char* key, sarray_t& sarray) const
     ::ThrowException(ss.str());
   }
 
-  const picojson::array& array = val.get<picojson::array>();
+  const auto& array = val.get<picojson::array>();
   sarray.clear();
 
   auto size = array.size();
