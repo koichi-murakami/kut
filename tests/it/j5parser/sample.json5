@@ -1,7 +1,7 @@
 // JSON5 test pattern (for generic parser test)
 
-/* 
-* block comments 
+/*
+* block comments
 */
 
 {
@@ -15,13 +15,15 @@
 
     // primary type (gun / beam)
     type : 'gun',
- "number" : 10, // integer
+   "number" : 10, // integer
 
     // particle starting position (x,y,z) in cm (z >= -100)
     // z is w.r.t. the surface phantom (SSD)
     "position" : [ 5.,    // x
                    +.1,   // y, ng
                    +100. ],  // z, ng
+
+    legend : [":x1:", "y+2", "z3..."],
 
     strarray : [ 'hello world', 'bbb', 'ccc'],
 
@@ -52,7 +54,7 @@ zzz : {
 
   array2 : {
     element1: "hoge",
-    element2: "fuga" 
+    element2: "fuga"
   },
 
   // bool
@@ -67,6 +69,8 @@ zzz : {
     /* geometry size */
     size : 10.0,   /* hoge hoge */
 
+    segment : [5, 105, 25],
+
     // position in different namespace
     position : [ 1., 1., 0. ],
 
@@ -78,7 +82,7 @@ zzz : {
   },
   /*     hoge fuga    */
   // ...
-  multi_line : '  
+  multi_line : '
 hoge fuga momo \	  // comments
 fuga hoge momo',
 
@@ -89,4 +93,3 @@ fuga hoge momo',
   int_param : 10, // ng
 
 }
-
